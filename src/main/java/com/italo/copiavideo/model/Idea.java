@@ -16,7 +16,7 @@ public class Idea {
     private String title;
 
     @Column()
-    private String anottations;
+    private String annotations;
 
     @Column(nullable = false)
     private String link_video;
