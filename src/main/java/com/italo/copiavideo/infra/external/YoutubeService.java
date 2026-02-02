@@ -7,8 +7,11 @@ import com.google.api.services.youtube.YouTube;
 
 import com.google.api.services.youtube.model.SearchResult;
 
+import com.italo.copiavideo.DTO.youtube.VideoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 
 import java.io.IOException;
@@ -25,7 +28,7 @@ public class YoutubeService {
     ).setApplicationName("copia-video-app").build();
 
 
-    public Object getVideos(String theme){
+    public List<VideoDTO> getVideos(String theme){
         try{
             YouTube.Search.List request = youTube.search().list(List.of("snippet"));
 
@@ -37,8 +40,11 @@ public class YoutubeService {
 
             List<SearchResult> result =   request.execute().getItems();
 
+            ObjectMapper mapper = new ObjectMapper();
 
-            return result;
+            List<VideoDTO> response = mapper.readValue(result.toString(), new TypeReference<List<VideoDTO>>() {});
+
+            return response;
 
 
 
