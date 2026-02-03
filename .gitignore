@@ -33,4 +33,3 @@ build/
 .vscode/
 .env
 /src/main/java/com/italo/copiavideo/Teste.java
-/src/main/java/com/italo/copiavideo/infra/security
