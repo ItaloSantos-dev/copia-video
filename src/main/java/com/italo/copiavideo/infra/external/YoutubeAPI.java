@@ -23,11 +23,11 @@ public class YoutubeAPI {
     ).setApplicationName("copia-video-app").build();
 
 
-    public List<VideoSearchDTO> getVideos(String theme){
+    public List<VideoSearchDTO> getVideos(String search){
         try{
             YouTube.Search.List request = youTube.search().list(List.of("snippet"));
 
-            request.setQ(theme);
+            request.setQ(search);
             request.setType(List.of("video"));
             request.setMaxResults(10L);
             request.setOrder("viewCount");
@@ -46,7 +46,7 @@ public class YoutubeAPI {
         }
     }
 
-    public VideoDTO getVideo(String id){
+    public VideoDTO getVideoById(String id){
         try{
             YouTube.Videos.List request = youTube.videos().list(List.of("snippet", "statistics"));
 

@@ -16,11 +16,11 @@ public class YoutubeService {
         this.youtubeAPI = new YoutubeAPI();
     }
 
-    public List<VideoSearchDTO> getVideos(String theme){
-        return this.youtubeAPI.getVideos(theme);
+    public List<VideoSearchDTO> getVideosBySearch(String search){
+        return this.youtubeAPI.getVideos(search);
     }
 
-    public VideoDTO getVideo(String id){
-        return this.youtubeAPI.getVideo(id);
+    public VideoDTO getVideoById(String id){
+        return this.youtubeAPI.getVideoById(id);
     }
 }
