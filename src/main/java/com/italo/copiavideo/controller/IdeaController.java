@@ -18,7 +18,7 @@ public class IdeaController {
     @Autowired
     private IdeaService ideaService;
 
-    @PostMapping("/idea")
+    @PostMapping
     public ResponseEntity<Idea> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO){
         return ResponseEntity.ok(this.ideaService.createIdea(createIdeaDTO));
     }
