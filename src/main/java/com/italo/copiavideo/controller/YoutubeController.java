@@ -17,12 +17,12 @@ public class YoutubeController {
     private YoutubeService youtubeService;
 
     @GetMapping
-    public ResponseEntity<List<VideoSearchDTO>> getVideos(@RequestParam String search){
+    public ResponseEntity<List<VideoSearchDTO>> getVideosBySearch(@RequestParam String search){
         return ResponseEntity.ok(this.youtubeService.getVideosBySearch(search));
     }
 
     @GetMapping("/video/{id}")
-    public ResponseEntity<VideoDTO> getVideo(@PathVariable String id){
+    public ResponseEntity<VideoDTO> getVideoById(@PathVariable String id){
         return ResponseEntity.ok(this.youtubeService.getVideoById(id));
     }
 
