@@ -28,6 +28,8 @@ public class User implements UserDetails {
     private String password;
 
 
+
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Idea> ideas;
