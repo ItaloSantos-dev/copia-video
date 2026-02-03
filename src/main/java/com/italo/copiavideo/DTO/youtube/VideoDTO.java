@@ -1,12 +1,9 @@
 package com.italo.copiavideo.DTO.youtube;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+public record VideoDTO(
+        String id,
+        SnippetDTO snippet,
+        StatisticsDTO statistics
 
-import java.util.HashMap;
-@JsonIgnoreProperties
-public record VideoDTO (
-        HashMap<String, String> id,
-        SnippetDTO snippet
-){
-
+) {
 }

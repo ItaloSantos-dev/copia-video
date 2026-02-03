@@ -4,8 +4,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.VideoListResponse;
 import com.italo.copiavideo.DTO.youtube.VideoDTO;
-import org.springframework.beans.factory.annotation.Value;
+import com.italo.copiavideo.DTO.youtube.VideoSearchDTO;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
@@ -13,15 +14,16 @@ import java.io.IOException;
 import java.util.List;
 
 public class YoutubeAPI {
-    @Value("${youtube.api.key}")
-    private String apiKey;
+
+    private String apiKey = System.getenv("YOUTUBE_API_KEY");
+    ObjectMapper mapper = new ObjectMapper();
 
     private final YouTube youTube = new YouTube.Builder(
             new NetHttpTransport(), JacksonFactory.getDefaultInstance(), request ->{}
     ).setApplicationName("copia-video-app").build();
 
 
-    public List<VideoDTO> getVideos(String theme){
+    public List<VideoSearchDTO> getVideos(String theme){
         try{
             YouTube.Search.List request = youTube.search().list(List.of("snippet"));
 
@@ -33,9 +35,9 @@ public class YoutubeAPI {
 
             List<SearchResult> result =   request.execute().getItems();
 
-            ObjectMapper mapper = new ObjectMapper();
 
-            List<VideoDTO> response = mapper.readValue(result.toString(), new TypeReference<List<VideoDTO>>() {});
+
+            List<VideoSearchDTO> response = mapper.readValue(result.toString(), new TypeReference<List<VideoSearchDTO>>() {});
 
             return response;
 
@@ -43,4 +45,5 @@ public class YoutubeAPI {
             throw  new RuntimeException(exception.getMessage());
         }
     }
+
 }
