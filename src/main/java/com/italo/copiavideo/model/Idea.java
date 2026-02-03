@@ -26,6 +26,9 @@ public class Idea {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Idea() {
+    }
+
     public Idea(User user, String link_video, String annotations, String title) {
         this.annotations = annotations;
         this.title = title;
