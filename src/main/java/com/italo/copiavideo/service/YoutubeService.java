@@ -20,5 +20,7 @@ public class YoutubeService {
         return this.youtubeAPI.getVideos(theme);
     }
 
-
+    public VideoDTO getVideo(String id){
+        return this.youtubeAPI.getVideo(id);
+    }
 }

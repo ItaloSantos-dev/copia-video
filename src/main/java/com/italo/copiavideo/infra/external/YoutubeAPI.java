@@ -46,4 +46,19 @@ public class YoutubeAPI {
         }
     }
 
+    public VideoDTO getVideo(String id){
+        try{
+            YouTube.Videos.List request = youTube.videos().list(List.of("snippet", "statistics"));
+
+            request.setId(List.of(id));
+            request.setKey(apiKey);
+
+            VideoListResponse result = request.execute();
+            VideoDTO response = mapper.readValue(result.getItems().get(0).toString(), VideoDTO.class);
+            return  response;
+
+        }catch (IOException exception){
+            throw  new RuntimeException(exception.getMessage());
+        }
+    }
 }
