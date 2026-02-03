@@ -32,7 +32,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private RoleUser role;
 
+    public User() {
+    }
 
+    public User(String name, String email, String password, RoleUser role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
