@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.italo.copiavideo.exceptions.FailedCreateTokenException;
 import com.italo.copiavideo.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class TokenService {
                     .withSubject(user.getUsername())
                     .sign(algorithm);
         }catch (JWTCreationException exception){
-            throw new RuntimeException(exception.getMessage());
+            throw new FailedCreateTokenException();
         }
     }
 
