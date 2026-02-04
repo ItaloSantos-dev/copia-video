@@ -3,10 +3,12 @@ package com.italo.copiavideo.controller;
 import com.auth0.jwt.JWT;
 import com.italo.copiavideo.DTO.request.CreateIdeaDTO;
 import com.italo.copiavideo.DTO.request.UpdateIdeaDTO;
+import com.italo.copiavideo.DTO.response.IdeaDTO;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.service.IdeaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,15 @@ public class IdeaController {
 
     @Autowired
     private IdeaService ideaService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<IdeaDTO>> getAllIdeas(){
+        List<Idea> ideas = this.ideaService.getAllIdeas();
+
+        List<IdeaDTO> response = ideas.stream().map( idea -> new IdeaDTO(idea.getId(), idea.getTitle(), idea.getLink_video(), idea.getAnnotations(), idea.getUser().getName())).toList();
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<List<Idea>> getMyIdeas(){

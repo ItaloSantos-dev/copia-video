@@ -6,6 +6,7 @@ import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.repository.IdeaRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,10 @@ public class IdeaService {
 
     @Autowired
     private EntityManager entityManager;
+
+    public List<Idea> getAllIdeas(){
+        return this.ideaRepository.findAll();
+    }
 
     public List<Idea> getMyIdeas(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

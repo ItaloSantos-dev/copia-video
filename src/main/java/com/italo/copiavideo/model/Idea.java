@@ -69,5 +69,11 @@ public class Idea {
         this.link_video = link_video;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
