@@ -1,6 +1,7 @@
 import { Snippet } from "./snippet";
+import { VideoSearchId } from "./video-search-id";
 
 export interface VideoSearch{
-    id:Map<string,string>,
+    id:VideoSearchId,
     snippet:Snippet
 }
