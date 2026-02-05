@@ -39,6 +39,8 @@ testem.log
 /typings
 __screenshots__/
 
+/src/app/components/teste
+
 # System files
 .DS_Store
 Thumbs.db
