@@ -2,6 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ApiBack } from '../../api-back/api-back';
 import { LoginDTO } from '../../types/dto/login-dto';
 import { Observable } from 'rxjs';
+import { User } from '../../types/internal/user';
+import { RegisterDTO } from '../../types/dto/register-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +26,9 @@ export class AuthService {
 
   isLogged():boolean{
     return !!localStorage.getItem('token');
+  }
+
+  register(newUser:RegisterDTO):Observable<User>{
+    return this.apiBack.register(newUser);
   }
 }

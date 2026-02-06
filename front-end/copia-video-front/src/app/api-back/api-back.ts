@@ -7,6 +7,8 @@ import { Video } from "../types/external/video";
 import { video } from "../../mock/video-minecraft";
 import { Idea } from "../types/internal/idea";
 import { LoginDTO } from "../types/dto/login-dto";
+import { RegisterDTO } from "../types/dto/register-dto";
+import { User } from "../types/internal/user";
 
 @Injectable({
     providedIn:'root',
@@ -36,15 +38,16 @@ export class ApiBack {
     }
 
     saveNewIdea(newIdea:Idea, token:string):Observable<Idea>{
-        let headers = new HttpHeaders();
-        headers = headers.set('Authorization', token);
-
-        return this.client.post<Idea>(this.urlBase + "/ideas", newIdea, {headers});
+        return this.client.post<Idea>(this.urlBase + "/ideas", newIdea);
     }
 
 
     login(user:LoginDTO):Observable<string>{
         return this.client.post(this.urlBase + "/auth/login", user, {responseType:'text'});
+    }
+
+    register(newUser:RegisterDTO):Observable<User>{
+        return this.client.post<User>(this.urlBase + "/auth/register", newUser);
     }
 
 
