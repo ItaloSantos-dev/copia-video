@@ -6,6 +6,7 @@ import { videoList } from "../../mock/videos-minecraft-mock";
 import { Video } from "../types/external/video";
 import { video } from "../../mock/video-minecraft";
 import { Idea } from "../types/internal/idea";
+import { LoginDTO } from "../types/dto/login-dto";
 
 @Injectable({
     providedIn:'root',
@@ -39,6 +40,11 @@ export class ApiBack {
         headers = headers.set('Authorization', "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb3BpYS12aWRlby1hcHAiLCJleHAiOjE3NzAzNDgwNzIsInN1YiI6InRlc3RlQC5jb20ifQ.r5Ymt_BmcLI723GdJQMgF418u8WS74w9v7_0QqEU9SY");
 
         return this.client.post<Idea>(this.urlBase + "/ideas", newIdea, {headers});
+    }
+
+
+    login(newUser:LoginDTO):Observable<string>{
+        return this.client.post(this.urlBase + "/auth/login", newUser, {responseType:'text'});
     }
 
 
