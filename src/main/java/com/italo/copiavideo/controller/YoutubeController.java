@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/yt")
+@CrossOrigin(origins = ("*"))
 public class YoutubeController {
 
     @Autowired
@@ -21,8 +22,10 @@ public class YoutubeController {
         return ResponseEntity.ok(this.youtubeService.getVideosBySearch(search));
     }
 
+
     @GetMapping("/video/{id}")
     public ResponseEntity<VideoDTO> getVideoById(@PathVariable String id){
+        System.out.println("chegou");
         return ResponseEntity.ok(this.youtubeService.getVideoById(id));
     }
 

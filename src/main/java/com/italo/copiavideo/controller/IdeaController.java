@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/ideas")
+@CrossOrigin(origins = "*")
 
 public class IdeaController {
 

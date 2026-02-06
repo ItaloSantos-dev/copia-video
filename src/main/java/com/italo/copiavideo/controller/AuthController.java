@@ -2,19 +2,18 @@ package com.italo.copiavideo.controller;
 
 import com.italo.copiavideo.DTO.request.LoginUserDTO;
 import com.italo.copiavideo.DTO.request.RegisterUserDTO;
+import com.italo.copiavideo.DTO.response.UserDTO;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.service.AuthService;
 import com.italo.copiavideo.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
@@ -24,9 +23,9 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterUserDTO registerUserDTO){
-
-        return ResponseEntity.ok(this.authService.register(registerUserDTO));
+    public ResponseEntity<UserDTO> register(@RequestBody RegisterUserDTO registerUserDTO){
+        User newUser = this.authService.register(registerUserDTO);
+        return ResponseEntity.ok(new UserDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole()));
     }
 
     @PostMapping("login")

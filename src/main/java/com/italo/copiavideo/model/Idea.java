@@ -6,7 +6,11 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ideas")
+@Table(name = "ideas",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "title"})
+    }
+)
 public class Idea {
 
     @Id
