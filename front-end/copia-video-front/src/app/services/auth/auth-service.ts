@@ -20,4 +20,9 @@ export class AuthService {
   getToken():string{
     return localStorage.getItem('token') as string;
   }
+
+
+  isLogged():boolean{
+    return !!localStorage.getItem('token');
+  }
 }

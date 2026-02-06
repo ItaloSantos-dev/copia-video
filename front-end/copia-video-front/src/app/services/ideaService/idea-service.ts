@@ -10,7 +10,8 @@ export class IdeaService {
   apiBack = inject(ApiBack)
 
   saveNewIdea(newIdea:Idea):Observable<Idea>{
-    return this.apiBack.saveNewIdea(newIdea).pipe();
+    const token  = "Bearer "+ localStorage.getItem('token') as string
+    return this.apiBack.saveNewIdea(newIdea, token).pipe();
   }
 
   

@@ -35,9 +35,9 @@ export class ApiBack {
         return this.client.get<Video>(this.urlBase+"/yt/video/"+id);
     }
 
-    saveNewIdea(newIdea:Idea):Observable<Idea>{
+    saveNewIdea(newIdea:Idea, token:string):Observable<Idea>{
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb3BpYS12aWRlby1hcHAiLCJleHAiOjE3NzAzNDgwNzIsInN1YiI6InRlc3RlQC5jb20ifQ.r5Ymt_BmcLI723GdJQMgF418u8WS74w9v7_0QqEU9SY");
+        headers = headers.set('Authorization', token);
 
         return this.client.post<Idea>(this.urlBase + "/ideas", newIdea, {headers});
     }
