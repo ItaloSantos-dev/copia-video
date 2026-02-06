@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { CopiaVideoApiService } from '../../services/copia-video-api-service';
 import { Video } from '../../types/external/video';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Idea } from '../../types/internal/idea';
+import { IdeaService } from '../../services/ideaService/idea-service';
+import { VideoService } from '../../services/videoService/video-service';
 
 
 @Component({
@@ -14,19 +15,23 @@ import { Idea } from '../../types/internal/idea';
 })
 export class CreateIdea {
   
-  
-  apiCopiaVideoService = inject(CopiaVideoApiService);
+  ideaService = inject(IdeaService);
+  videoService = inject(VideoService);
+
   iframeUrl!:SafeResourceUrl;
 
   route = inject(ActivatedRoute);
+
   video = signal(<Video>({} as Video));
+
   sanitizer = inject(DomSanitizer)
+
 
 
   ngOnInit():void{
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.apiCopiaVideoService.getVideoById(id).subscribe({
+      this.videoService.getVideoById(id).subscribe({
         next:(dado)=> {
           console.log("Veio foi aqui" + dado);
           
@@ -51,7 +56,7 @@ export class CreateIdea {
       link_video: "http://youtube.com/watch?v=" + this.video().id
     }
     
-    this.apiCopiaVideoService.saveNewIdea(newIdea).subscribe({
+    this.ideaService.saveNewIdea(newIdea).subscribe({
       next:(dado)=> {
         console.log("Salvou" + dado);
       },
@@ -60,10 +65,6 @@ export class CreateIdea {
         
       }
     })
-    
-  
-    
-    
   }
 
 

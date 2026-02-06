@@ -1,8 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { CopiaVideoApiService } from '../../services/copia-video-api-service';
 import { VideoSearch } from '../../types/external/video-search';
 import { isEmpty } from 'rxjs';
 import { RouterLink } from "@angular/router";
+import { VideoService } from '../../services/videoService/video-service';
+import { Video } from '../../types/external/video';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,16 @@ import { RouterLink } from "@angular/router";
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
+
 export class Home {
-  apiCopiaVideoService = inject(CopiaVideoApiService);
+  videoService = inject(VideoService);
 
   search = signal("");
   videos = signal(<VideoSearch[]>([]));
 
   
   getMockData(){
-    this.videos.set(this.apiCopiaVideoService.getMockData())
+    this.videos.set(this.videoService.getMockData())
   }
 
 
@@ -28,18 +30,16 @@ export class Home {
     }
     else{
       this.search.set(_search)
-      this.apiCopiaVideoService.getVideosBySearch(_search).subscribe({
-      next:(dados)=>{
-        console.log(dados[0].snippet.thumbnails.default);
-        
-        this.videos.set(dados);
-      },
-      error:(erro)=>{
-        this.search.set("Erro ao acessar videos");
-      }
-    })
+      this.videoService.getVideosBySearch(_search).subscribe({
+        next:(dados)=>{
+          this.videos.set(dados);
+        },
+        error:(erro)=>{
+          console.log(erro);
+        }
+      })
+      
     }
   }
-
 
 }

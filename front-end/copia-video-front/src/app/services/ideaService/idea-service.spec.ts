@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CopiaVideoApiService } from './copia-video-api-service';
+import { IdeaService } from './idea-service';
 
-describe('CopiaVideoApiService', () => {
-  let service: CopiaVideoApiService;
+describe('IdeaService', () => {
+  let service: IdeaService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CopiaVideoApiService);
+    service = TestBed.inject(IdeaService);
   });
 
   it('should be created', () => {
