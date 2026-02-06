@@ -43,8 +43,8 @@ export class ApiBack {
     }
 
 
-    login(newUser:LoginDTO):Observable<string>{
-        return this.client.post(this.urlBase + "/auth/login", newUser, {responseType:'text'});
+    login(user:LoginDTO):Observable<string>{
+        return this.client.post(this.urlBase + "/auth/login", user, {responseType:'text'});
     }
 
 

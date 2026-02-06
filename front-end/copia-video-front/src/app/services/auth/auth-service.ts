@@ -9,7 +9,15 @@ import { Observable } from 'rxjs';
 export class AuthService {
   apiBack = inject(ApiBack)
 
-  login(newUser:LoginDTO):Observable<string>{
-    return this.apiBack.login(newUser).pipe();
+  login(user:LoginDTO):Observable<string>{
+    return this.apiBack.login(user).pipe();
+  }
+
+  saveToken(token:string){
+    localStorage.setItem('token', token);
+  }
+
+  getToken():string{
+    return localStorage.getItem('token') as string;
   }
 }
