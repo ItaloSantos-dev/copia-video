@@ -35,6 +35,14 @@
                     <span>Login</span>
                 </a>
             }
+            @else{
+                <a routerLink="/logout"
+                routerLinkActive="bg-green-500 text-slate-950 shadow-green-500/20"
+                class="flex items-center gap-2 px-5 py-2 rounded-xl bg-white/5 text-white hover:bg-green-500 hover:text-slate-950 transition-all text-sm font-extrabold shadow-lg group">
+                    <i class="bi bi-door-open"></i>
+                    <span>Sair</span>
+                </a>
+            }
         </nav>
     </div>
 </header>

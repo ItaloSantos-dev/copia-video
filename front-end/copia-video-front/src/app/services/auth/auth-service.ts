@@ -4,12 +4,15 @@ import { LoginDTO } from '../../types/dto/login-dto';
 import { Observable } from 'rxjs';
 import { User } from '../../types/internal/user';
 import { RegisterDTO } from '../../types/dto/register-dto';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   apiBack = inject(ApiBack)
+  router = inject(Router);
+
 
   login(user:LoginDTO):Observable<string>{
     return this.apiBack.login(user).pipe();
@@ -46,5 +49,10 @@ export class AuthService {
     const now = Date.now() / 1000;
     
     return payload.exp < now;
+  }
+
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/'])
   }
 }

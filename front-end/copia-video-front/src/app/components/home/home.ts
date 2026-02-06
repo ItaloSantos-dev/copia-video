@@ -4,6 +4,7 @@ import { isEmpty } from 'rxjs';
 import { RouterLink } from "@angular/router";
 import { VideoService } from '../../services/videoService/video-service';
 import { Video } from '../../types/external/video';
+import { AuthService } from '../../services/auth/auth-service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { Video } from '../../types/external/video';
 
 export class Home {
   videoService = inject(VideoService);
+  authService = inject(AuthService);
 
   search = signal("");
   videos = signal(<VideoSearch[]>([]));
@@ -40,6 +42,10 @@ export class Home {
       })
       
     }
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }
