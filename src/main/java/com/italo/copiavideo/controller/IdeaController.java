@@ -39,9 +39,10 @@ public class IdeaController {
     }
 
     @PostMapping
-    public ResponseEntity<Idea> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO){
+    public ResponseEntity<IdeaDTO> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO){
         System.out.println(createIdeaDTO);
-        return ResponseEntity.ok(this.ideaService.createIdea(createIdeaDTO));
+        Idea newIdea = this.ideaService.createIdea(createIdeaDTO);
+        return ResponseEntity.ok(new IdeaDTO(newIdea.getId(), newIdea.getTitle(), newIdea.getVideo_id(), newIdea.getAnnotations(), newIdea.getUser().getName()));
     }
 
     @PutMapping("/{id}")
@@ -52,7 +53,8 @@ public class IdeaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Idea> deleteIdea(@PathVariable UUID id){
+    public ResponseEntity<Idea> deleteIdea(@PathVariable String id){
+        System.out.println("id:" + id);
         this.ideaService.deleteIdea(id);
         return ResponseEntity.ok().build();
     }

@@ -14,6 +14,10 @@ export class AllIdeas {
 
 
   ngOnInit(){
+    this.loadMyIdeas();
+  }
+
+  loadMyIdeas(){
     this.ideaService.getMyIdeas().subscribe({
       next:(dados) => {
         this.ideas.set(dados)
@@ -26,6 +30,22 @@ export class AllIdeas {
         
       }
     })
+  }
+
+  deleIdea(id:string){
+    console.log("ts: " + id);
+    
+    this.ideaService.deleteIdeaById(id).subscribe({
+      next: ()=>{
+        this.loadMyIdeas()
+        console.log("Idea apagada com sucesso");  
+      },
+      error:(erro)=>{
+        console.log("Erro ao deletar ideia \n" + erro);
+        
+      }
+    })
+    
   }
 
 }

@@ -63,8 +63,8 @@ public class IdeaService {
         return this.ideaRepository.save(idea);
     }
 
-    public void deleteIdea(UUID id){
-        if (!this.ideaRepository.existsById(id)) throw new ResourceNotFoundException("ideia", id.toString());
-        this.ideaRepository.deleteById(id);
+    public void deleteIdea(String id){
+        if (!this.ideaRepository.existsById(UUID.fromString(id))) throw new ResourceNotFoundException("ideia", id.toString());
+        this.ideaRepository.deleteById(UUID.fromString(id));
     }
 }

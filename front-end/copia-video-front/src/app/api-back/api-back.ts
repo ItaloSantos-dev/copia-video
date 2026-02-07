@@ -54,7 +54,8 @@ export class ApiBack {
         return this.client.get<Idea[]>(this.urlBase + "/ideas");
     }
 
-
-
+    deleteIdeaById(id:string):Observable<any>{
+        return this.client.delete(this.urlBase + "/ideas/" + id);
+    }
 
 }

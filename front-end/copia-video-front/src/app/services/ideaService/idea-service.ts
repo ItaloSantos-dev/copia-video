@@ -18,6 +18,12 @@ export class IdeaService {
     return this.apiBack.saveNewIdea(newIdea).pipe();
   }
 
+  deleteIdeaById(id:string){
+    console.log(id);
+    
+    return this.apiBack.deleteIdeaById(id);
+  }
+
   
 
 }
