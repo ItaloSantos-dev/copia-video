@@ -24,6 +24,14 @@ export class IdeaService {
     return this.apiBack.deleteIdeaById(id);
   }
 
+  getIdeaById(id:string){
+    return this.apiBack.getIdeaById(id);
+  }
+
+  updateIdeaById(id:string, idea:Idea):Observable<Idea>{
+    return this.apiBack.updateIdeaById(id, idea);
+  }
+
   
 
 }

@@ -11,7 +11,7 @@
         </div>
 
         <nav class="flex items-center gap-1 md:gap-3 bg-slate-950/20 p-1.5 rounded-2xl border border-white/5">
-            <a routerLink="/" 
+            <a routerLink="" 
                routerLinkActive="bg-white/10 text-green-400 shadow-inner" 
                class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-sm font-bold group">
                 <i class="bi bi-house-door group-hover:-translate-y-0.5 transition-transform"></i>
@@ -36,9 +36,15 @@
                 </a>
             }
             @else{
+                <a routerLink="/ideas" 
+                routerLinkActive="bg-white/10 text-green-400 shadow-inner"
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-sm font-bold group">
+                    <i class="bi bi-lightbulb-fill group-hover:rotate-12 transition-transform"></i>
+                    <span class="hidden sm:inline">Minhas ideias</span>
+                </a>
+
                 <a routerLink="/logout"
-                routerLinkActive="bg-green-500 text-slate-950 shadow-green-500/20"
-                class="flex items-center gap-2 px-5 py-2 rounded-xl bg-white/5 text-white hover:bg-green-500 hover:text-slate-950 transition-all text-sm font-extrabold shadow-lg group">
+                class="flex items-center gap-2 px-5 py-2 rounded-xl  text-white hover:bg-red-500 hover:text-slate-950 transition-all text-sm font-extrabold shadow-lg group">
                     <i class="bi bi-door-open"></i>
                     <span>Sair</span>
                 </a>

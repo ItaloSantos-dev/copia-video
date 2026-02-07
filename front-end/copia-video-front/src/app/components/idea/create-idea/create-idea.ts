@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Video } from '../../../types/external/video';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Idea } from '../../../types/internal/idea';
 import { IdeaService } from '../../../services/ideaService/idea-service';
@@ -21,6 +21,8 @@ export class CreateIdea {
   iframeUrl!:SafeResourceUrl;
 
   route = inject(ActivatedRoute);
+
+  router = inject(Router)
 
   video = signal(<Video>({} as Video));
 
@@ -61,7 +63,7 @@ export class CreateIdea {
     
     this.ideaService.saveNewIdea(newIdea).subscribe({
       next:(dado)=> {
-        console.log("Salvou" + dado);
+        this.router.navigate(['/ideas'])
       },
       error:(erro)=>{
         console.log(erro);

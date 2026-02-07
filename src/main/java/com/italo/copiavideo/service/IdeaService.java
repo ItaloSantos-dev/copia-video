@@ -58,7 +58,6 @@ public class IdeaService {
 
         idea.setTitle(request.title());
         idea.setAnnotations(request.annotations());
-        idea.setLink_video(request.link_video());
 
         return this.ideaRepository.save(idea);
     }
@@ -66,5 +65,15 @@ public class IdeaService {
     public void deleteIdea(String id){
         if (!this.ideaRepository.existsById(UUID.fromString(id))) throw new ResourceNotFoundException("ideia", id.toString());
         this.ideaRepository.deleteById(UUID.fromString(id));
+    }
+
+    public Idea getIdeaById(String id){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).get();
+        if(!idea.getUser().getId().equals(user.getId())){
+            throw  new RuntimeException("nao é o memo user");
+        }
+        return idea;
+
     }
 }

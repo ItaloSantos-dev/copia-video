@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { IdeaService } from '../../../services/ideaService/idea-service';
 import { Idea } from '../../../types/internal/idea';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-all-ideas',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './all-ideas.html',
   styleUrl: './all-ideas.css',
 })
@@ -20,10 +21,7 @@ export class AllIdeas {
   loadMyIdeas(){
     this.ideaService.getMyIdeas().subscribe({
       next:(dados) => {
-        this.ideas.set(dados)
-        console.log(dados);
-        
-        
+        this.ideas.set(dados);
       },
       error:(erro) => {
         console.log(erro);

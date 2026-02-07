@@ -1,0 +1,54 @@
+<main class="flex justify-center p-4 antialiased">
+    <div class="mt-6 w-full max-w-4xl">
+        <div class="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8 flex flex-col gap-8">
+            
+            <h2 class="text-center text-2xl text-white shadow font-bold">Video:</h2>
+            <div class="flex justify-center">
+                <iframe width="560" height="315" [src]="iframeUrl()" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+
+            <form [formGroup]="editForm">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-2">
+                        <i class="bi bi-pencil text-green-400"></i>
+                        <h2 class="text-white font-bold tracking-wide">Título da ideia</h2>
+                    </div>
+                    <input
+                        formControlName="title"
+                        
+                        class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all resize-none"
+                    type="text" name="title" id="title">
+
+                    <div class="flex items-center gap-2">
+                        <i class="bi bi-pencil-square text-green-400"></i>
+                        <h2 class="text-white font-bold tracking-wide">Anotações da ideia</h2>
+                    </div>
+                    <textarea
+                        formControlName="annotations"
+                        class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all min-h-37.5 resize-none"
+                        placeholder="Escreva algo importante sobre este vídeo..."
+                        ></textarea>
+                </div>
+            </form>
+
+
+            <div class="flex flex-wrap justify-center items-center gap-4 pt-2">
+                <button (click)="submit()"  class="flex-1 min-w-30 bg-green-500 hover:bg-green-400 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-green-500/20" type="button">
+                    <i class="bi bi-check-lg"></i>
+                    <span>Salvar Alterações</span>
+                </button> 
+                
+                <button class="flex-1 min-w-30 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 border border-white/10" type="button">
+                    <i class="bi bi-palette"></i>
+                    <span>Desenhar</span>
+                </button>
+                
+                <button class="flex-1 min-w-30 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/50 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2" type="button">
+                    <i class="bi bi-trash"></i>
+                    <span>Deletar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
