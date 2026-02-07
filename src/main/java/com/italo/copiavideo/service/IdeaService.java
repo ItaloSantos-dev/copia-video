@@ -42,7 +42,7 @@ public class IdeaService {
     public Idea createIdea(CreateIdeaDTO request) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Idea ideaModel = new Idea(user, request.link_video(), request.annotations(), request.title());
+        Idea ideaModel = new Idea(user, request.video_id(), request.annotations(), request.title());
 
         try {
             Idea newIdea = this.ideaRepository.save(ideaModel);

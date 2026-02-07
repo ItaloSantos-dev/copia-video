@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { Video } from '../../types/external/video';
+import { Video } from '../../../types/external/video';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Idea } from '../../types/internal/idea';
-import { IdeaService } from '../../services/ideaService/idea-service';
-import { VideoService } from '../../services/videoService/video-service';
+import { Idea } from '../../../types/internal/idea';
+import { IdeaService } from '../../../services/ideaService/idea-service';
+import { VideoService } from '../../../services/videoService/video-service';
 
 
 @Component({
@@ -29,6 +29,7 @@ export class CreateIdea {
 
 
   ngOnInit():void{
+    
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.videoService.getVideoById(id).subscribe({
@@ -50,10 +51,12 @@ export class CreateIdea {
   }
 
   saveNewIdea(_title:string, _annotations:string){
+    console.log(_title);
+    
     let newIdea:Idea={
       title: _title,
       annotations: _annotations,
-      link_video: "http://youtube.com/watch?v=" + this.video().id
+      video_id:  this.video().id
     }
     
     this.ideaService.saveNewIdea(newIdea).subscribe({

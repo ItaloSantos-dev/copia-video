@@ -5,6 +5,6 @@ import java.util.UUID;
 public record CreateIdeaDTO(
          String title,
          String annotations,
-         String link_video
+         String video_id
 ) {
 }

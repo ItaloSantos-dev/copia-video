@@ -24,7 +24,7 @@ public class Idea {
     private String annotations;
 
     @Column(nullable = false)
-    private String link_video;
+    private String video_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -33,11 +33,11 @@ public class Idea {
     public Idea() {
     }
 
-    public Idea(User user, String link_video, String annotations, String title) {
+    public Idea(User user, String video_id, String annotations, String title) {
         this.annotations = annotations;
         this.title = title;
         this.user = user;
-        this.link_video = link_video;
+        this.video_id = video_id;
 
     }
 
@@ -65,12 +65,12 @@ public class Idea {
         this.annotations = annotations;
     }
 
-    public String getLink_video() {
-        return link_video;
+    public String getVideo_id() {
+        return video_id;
     }
 
     public void setLink_video(String link_video) {
-        this.link_video = link_video;
+        this.video_id = link_video;
     }
 
     public User getUser() {

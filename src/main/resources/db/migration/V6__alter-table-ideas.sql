@@ -1,0 +1,1 @@
+ALTER TABLE ideas RENAME COLUMN link_video TO video_id;

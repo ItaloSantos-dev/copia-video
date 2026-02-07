@@ -28,7 +28,7 @@ public class IdeaController {
     public ResponseEntity<List<IdeaDTO>> getAllIdeas(){
         List<Idea> ideas = this.ideaService.getAllIdeas();
 
-        List<IdeaDTO> response = ideas.stream().map( idea -> new IdeaDTO(idea.getId(), idea.getTitle(), idea.getLink_video(), idea.getAnnotations(), idea.getUser().getName())).toList();
+        List<IdeaDTO> response = ideas.stream().map( idea -> new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName())).toList();
 
         return ResponseEntity.ok(response);
     }
@@ -40,6 +40,7 @@ public class IdeaController {
 
     @PostMapping
     public ResponseEntity<Idea> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO){
+        System.out.println(createIdeaDTO);
         return ResponseEntity.ok(this.ideaService.createIdea(createIdeaDTO));
     }
 

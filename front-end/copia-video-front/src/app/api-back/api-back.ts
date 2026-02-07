@@ -37,7 +37,7 @@ export class ApiBack {
         return this.client.get<Video>(this.urlBase+"/yt/video/"+id);
     }
 
-    saveNewIdea(newIdea:Idea, token:string):Observable<Idea>{
+    saveNewIdea(newIdea:Idea):Observable<Idea>{
         return this.client.post<Idea>(this.urlBase + "/ideas", newIdea);
     }
 
@@ -48,6 +48,10 @@ export class ApiBack {
 
     register(newUser:RegisterDTO):Observable<User>{
         return this.client.post<User>(this.urlBase + "/auth/register", newUser);
+    }
+
+    getMyIdeas(){
+        return this.client.get<Idea[]>(this.urlBase + "/ideas");
     }
 
 

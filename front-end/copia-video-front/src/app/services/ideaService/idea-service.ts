@@ -9,9 +9,13 @@ import { Observable } from 'rxjs';
 export class IdeaService {
   apiBack = inject(ApiBack)
 
+
+  getMyIdeas():Observable<Idea[]>{
+    return this.apiBack.getMyIdeas();
+  }
+
   saveNewIdea(newIdea:Idea):Observable<Idea>{
-    const token  = "Bearer "+ localStorage.getItem('token') as string
-    return this.apiBack.saveNewIdea(newIdea, token).pipe();
+    return this.apiBack.saveNewIdea(newIdea).pipe();
   }
 
   

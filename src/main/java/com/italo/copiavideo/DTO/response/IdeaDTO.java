@@ -5,7 +5,7 @@ import java.util.UUID;
 public record IdeaDTO(
         UUID id,
         String title,
-        String link_video,
+        String video_id,
         String annotations,
         String userName
 ) {
