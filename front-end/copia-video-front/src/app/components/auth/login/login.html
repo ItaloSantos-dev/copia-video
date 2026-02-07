@@ -1,66 +1,165 @@
-<main class=" flex items-center justify-center p-4">
+<main class="flex items-center justify-center  p-4">
     <div class="flex flex-col gap-6 w-full max-w-md relative z-10">
         
+        <!-- Card principal do login -->
         <form [formGroup]="formLogin" (ngSubmit)="submit()" 
-              class="bg-white/10 border border-white/10 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl flex flex-col gap-6">
-
-            <div class="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl">
-                <p class="text-green-400 text-center text-md mt-1 uppercase tracking-widest font-bold">Acesse sua conta</p>
-            </div>
-
-            <div class="text-red-500 font-semibold text-xl ">
-                @if(formLogin.get('email')?.invalid){Email inválido}
-            </div>
+              class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(16,185,129,0.2)] overflow-hidden">
             
-            <div class="flex flex-col gap-2">
-                <label class="text-slate-300 text-sm font-bold ml-1 flex items-center gap-2" for="email">
-                    <i class="bi bi-envelope-at text-green-400"></i> Email
-                </label>
-                <div class="relative">
-                    <input class="w-full bg-slate-950/50 border border-white/10 rounded-2xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 transition-all shadow-inner" 
-                           formControlName="email" 
-                           id="email" 
-                           type="email"
-                           placeholder="seu@email.com">
+            <!-- Brilho superior -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent"></div>
+            
+            <!-- Conteúdo do form -->
+            <div class="p-8 flex flex-col gap-6">
+                
+                <!-- Header com logo/título -->
+                <div class="relative group">
+                    <!-- Glow effect -->
+                    <div class="absolute -inset-1 bg-linear-to-r from-green-500/30 to-emerald-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                    
+                    <!-- Badge de boas-vindas -->
+                    <div class="relative bg-linear-to-br from-white/10 to-white/5 border border-white/20 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
+                        <div class="flex flex-col items-center gap-3">
+                            <!-- Ícone animado -->
+                            <div class="flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                                <i class="bi bi-shield-check text-green-400 text-3xl"></i>
+                            </div>
+                            
+                            <div class="text-center">
+                                <p class="text-green-400 text-xs uppercase tracking-[0.2em] font-bold mb-1">Bem-vindo de volta</p>
+                                <h1 class="text-white text-2xl font-bold bg-linear-to-r from-white to-green-100 bg-clip-text ">
+                                    Acesse sua conta
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="text-red-500 font-semibold text-xl ">
-                @if (formLogin.get('password')?.invalid) {Senha inválida}
-            </div>
+                <!-- Divisor -->
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
 
-            <div class="flex flex-col gap-2">
-                <label class="text-slate-300 text-sm font-bold ml-1 flex items-center gap-2" for="password">
-                    <i class="bi bi-lock text-green-400"></i> Senha
-                </label>
-                <div class="relative">
-                    <input class="w-full bg-slate-950/50 border border-white/10 rounded-2xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 transition-all shadow-inner" 
-                           id="password" 
-                           formControlName="password" 
-                           type="password"
-                           placeholder="********">
+                <!-- Mensagem de erro - Email -->
+                @if(formLogin.get('email')?.invalid && formLogin.get('email')?.touched) {
+                    <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                        <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                        <span class="text-red-400 text-sm font-semibold">Email inválido ou não preenchido</span>
+                    </div>
+                }
+                
+                <!-- Campo Email -->
+                <div class="flex flex-col gap-3">
+                    <label class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer" for="email">
+                        <div class="flex items-center justify-center w-9 h-9 bg-green-500/10 rounded-lg group-hover:bg-green-500/20 transition-colors">
+                            <i class="bi bi-envelope-at-fill text-green-400"></i>
+                        </div>
+                        <span>Endereço de email</span>
+                    </label>
+                    <div class="relative">
+                        <input 
+                            class="w-full bg-slate-950/60 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all hover:border-white/20 font-medium" 
+                            formControlName="email" 
+                            id="email" 
+                            type="email"
+                            placeholder="seuemail@exemplo.com"
+                        >
+                        <i class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                    </div>
                 </div>
-            </div>
 
-            <div class="text-center px-1">
-                <p class="text-slate-400 text-xs ">
-                    Não tem conta? 
-                    <a routerLink="/register" class="text-green-400 hover:text-green-300 font-bold transition-colors  ">Registre-se</a>
-                </p>
-            </div>
+                <!-- Mensagem de erro - Senha -->
+                @if(formLogin.get('password')?.invalid && formLogin.get('password')?.touched) {
+                    <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                        <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                        <span class="text-red-400 text-sm font-semibold">Senha inválida ou muito curta</span>
+                    </div>
+                }
 
-            <div class="pt-2">
-                <button type="submit"
+                <!-- Campo Senha -->
+                <div class="flex flex-col gap-3">
+                    <label class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer" for="password">
+                        <div class="flex items-center justify-center w-9 h-9 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-colors">
+                            <i class="bi bi-lock-fill text-cyan-400"></i>
+                        </div>
+                        <span>Senha de acesso</span>
+                    </label>
+                    <div class="relative">
+                        <input 
+                            class="w-full bg-slate-950/60 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all hover:border-white/20 font-medium" 
+                            id="password" 
+                            formControlName="password" 
+                            type="password"
+                            placeholder="••••••••••"
+                        >
+                        <i class="bi bi-shield-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                    </div>
+                </div>
+
+                <!-- Link esqueci senha (opcional) -->
+                <div class="text-right -mt-2">
+                    <a href="#" class="text-slate-400 hover:text-green-400 text-xs font-medium transition-colors inline-flex items-center gap-1">
+                        <span>Esqueceu a senha?</span>
+                        <i class="bi bi-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Divisor -->
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <!-- Botão de login -->
+                <div class="pt-2">
+                    <button 
+                        type="submit"
                         [disabled]="disableBtnLogin()"
-                        class="w-full disabled:bg-green-900 disabled:cursor-not-allowed bg-green-500 hover:bg-green-400 text-slate-950 font-extrabold py-4 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-green-500/20 flex items-center justify-center gap-3 hover:cursor-pointer group">
-                    <span>ENTRAR NA PLATAFORMA</span>
-                    <i class="bi bi-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </button>
+                        class="w-full relative group bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 disabled:from-slate-700 disabled:to-slate-800 disabled:cursor-not-allowed text-slate-950 disabled:text-slate-500 font-extrabold py-4 rounded-2xl transition-all duration-300 active:scale-[0.98] shadow-lg shadow-green-500/30 disabled:shadow-none flex items-center justify-center gap-3 overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-300 group-disabled:translate-x-full"></div>
+                        <i class="bi bi-box-arrow-in-right text-xl relative z-10"></i>
+                        <span class="relative z-10 tracking-wide">ENTRAR NA PLATAFORMA</span>
+                        <i class="bi bi-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+                <!-- Link para registro -->
+                <div class="text-center">
+                    <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-3 rounded-xl">
+                        <span class="text-slate-400 text-sm">Não tem uma conta?</span>
+                        <a 
+                            routerLink="/register" 
+                            class="text-green-400 hover:text-green-300 font-bold text-sm transition-colors inline-flex items-center gap-1 group"
+                        >
+                            <span>Criar conta</span>
+                            <i class="bi bi-arrow-right text-xs group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            <!-- Brilho inferior -->
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/30 to-transparent"></div>
         </form>
 
-        <p class="text-center text-slate-500 text-[10px] uppercase tracking-widest font-bold">
-            &copy; 2024 CopiaVideo Tech.
-        </p>
+        <!-- Footer -->
+        <div class="text-center space-y-2">
+            <div class="flex items-center justify-center gap-2">
+                <div class="h-px w-12 bg-linear-to-r from-transparent to-slate-600"></div>
+                <i class="bi bi-lock-fill text-slate-600 text-xs"></i>
+                <div class="h-px w-12 bg-linear-to-l from-transparent to-slate-600"></div>
+            </div>
+            <p class="text-slate-500 text-[10px] uppercase tracking-[0.15em] font-bold">
+                &copy; 2024 CopiaVideo Tech • Todos os direitos reservados
+            </p>
+        </div>
     </div>
 </main>
+
+<style>
+/* Animação de shake para erros */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+</style>

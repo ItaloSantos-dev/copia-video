@@ -1,0 +1,23 @@
+/* Scrollbar customizada para a lista de ideias */
+.ideas-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ideas-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.ideas-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.4), rgba(6, 182, 212, 0.4));
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.ideas-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.6), rgba(6, 182, 212, 0.6));
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}

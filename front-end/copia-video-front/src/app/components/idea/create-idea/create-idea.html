@@ -1,76 +1,167 @@
-<main class="flex justify-center p-4 antialiased">
-    <div class="mt-6 w-full max-w-4xl">
-        <div class="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8 flex flex-col gap-8">
+<main class="flex justify-center p-4 md:p-6 antialiased">
+    <div class="mt-6 w-full max-w-5xl">
+        <!-- Card principal com glassmorphism premium -->
+        <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-3xl shadow-[0_8px_32px_0_rgba(16,185,129,0.15)] overflow-hidden">
             
-            <div class="space-y-2">
-                <span class="text-green-400 text-xs font-bold uppercase tracking-widest">Nova ideia</span>
-                <h2 class="text-white text-2xl md:text-3xl font-extrabold leading-tight">
-                    Título do vídeo:
-                    {{video().snippet.title}}
-                </h2>
-            </div>
-
-            <div class="flex justify-center">
-                <iframe width="560" height="315" [src]="iframeUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
+            <!-- Brilho sutil no topo do card -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent"></div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-center group hover:bg-white/10 transition-colors">
-                    <i class="bi bi-eye text-green-400 text-xl mb-1"></i>
-                    <h2 class="text-slate-400 text-xs uppercase font-bold tracking-tighter">Views</h2>
-                    <p class="text-white text-lg font-mono">{{video().statistics.viewCount}}</p>
-                </div>
-
-                <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-center group hover:bg-white/10 transition-colors">
-                    <i class="bi bi-chat-dots text-green-400 text-xl mb-1"></i>
-                    <h2 class="text-slate-400 text-xs uppercase font-bold tracking-tighter">Comentários</h2>
-                    <p class="text-white text-lg font-mono">{{video().statistics.commentCount}}</p>
-                </div>
-
-                <div class="text-center bg-white/5 border border-white/10 p-4 rounded-2xl group hover:bg-white/10 transition-colors">
-                    <i class="bi bi-heart text-green-400 text-xl mb-1"></i>
-                    <h2 class="text-slate-400 text-xs uppercase font-bold tracking-tighter">Likes</h2>
-                    <p class="text-white text-lg font-mono">{{video().statistics.likeCount}}</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center gap-2">
-                    <i class="bi bi-pencil text-green-400"></i>
-                    <h2 class="text-white font-bold tracking-wide">Título da ideia</h2>
-                </div>
-                <input #titleInput
-                    class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all resize-none"
-                type="text" name="" id="">
-
-                <div class="flex items-center gap-2">
-                    <i class="bi bi-pencil-square text-green-400"></i>
-                    <h2 class="text-white font-bold tracking-wide">Anotações da ideia</h2>
-                </div>
-                <textarea 
-                    class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all min-h-37.5 resize-none"
-                    placeholder="Escreva algo importante sobre este vídeo..."
-                    #annotationsInput
-                    ></textarea>
-            </div>
-
-
-            <div class="flex flex-wrap justify-center items-center gap-4 pt-2">
-                <button (click)="saveNewIdea(titleInput.value, annotationsInput.value)" class="flex-1 min-w-30 bg-green-500 hover:bg-green-400 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-green-500/20" type="button">
-                    <i class="bi bi-check-lg"></i>
-                    <span>Salvar</span>
-                </button> 
+            <!-- Conteúdo do card -->
+            <div class="p-6 md:p-10 flex flex-col gap-8">
                 
-                <button class="flex-1 min-w-30 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 border border-white/10" type="button">
-                    <i class="bi bi-palette"></i>
-                    <span>Desenhar</span>
-                </button>
+                <!-- Header com badge e título -->
+                <div class="space-y-3">
+                    <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-400/30 px-3 py-1.5 rounded-full">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-400 text-xs font-bold uppercase tracking-widest">Nova ideia</span>
+                    </div>
+                    <h2 class="text-white text-2xl md:text-4xl font-extrabold leading-tight bg-linear-to-r from-white to-green-100 bg-clip-text ">
+                        {{video().snippet.title}}
+                    </h2>
+                    <p class="text-slate-400 text-sm">Capture suas melhores ideias deste vídeo</p>
+                </div>
+
+                <!-- Container do vídeo com efeito 3D -->
+                <div class="relative group">
+                    <!-- Glow effect atrás do vídeo -->
+                    <div class="absolute -inset-1 bg-linear-to-r from-green-500/20 to-cyan-500/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50 group-hover:opacity-75"></div>
+                    
+                    <!-- Vídeo -->
+                    <div class="relative bg-slate-950/50 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="aspect-video">
+                            <iframe 
+                                class="w-full h-full"
+                                [src]="iframeUrl" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
                 
-                <button class="flex-1 min-w-30 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/50 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2" type="button">
-                    <i class="bi bi-x-lg"></i>
-                    <span>Cancelar</span>
-                </button>
+                <!-- Stats cards com hover effect melhorado -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Views -->
+                    <div class="relative group overflow-hidden bg-linear-to-br from-white/10 to-white/5 border border-white/10 p-5 rounded-2xl text-center hover:border-green-400/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:scale-105">
+                        <div class="absolute inset-0 bg-linear-to-br from-green-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-green-500/10 rounded-xl mb-3 group-hover:bg-green-500/20 transition-colors">
+                                <i class="bi bi-eye text-green-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Views</h3>
+                            <p class="text-white text-2xl font-bold font-mono">{{video().statistics.viewCount}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Comentários -->
+                    <div class="relative group overflow-hidden bg-linear-to-br from-white/10 to-white/5 border border-white/10 p-5 rounded-2xl text-center hover:border-cyan-400/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] hover:scale-105">
+                        <div class="absolute inset-0 bg-linear-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-cyan-500/10 rounded-xl mb-3 group-hover:bg-cyan-500/20 transition-colors">
+                                <i class="bi bi-chat-dots text-cyan-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Comentários</h3>
+                            <p class="text-white text-2xl font-bold font-mono">{{video().statistics.commentCount}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Likes -->
+                    <div class="relative group overflow-hidden bg-linear-to-br from-white/10 to-white/5 border border-white/10 p-5 rounded-2xl text-center hover:border-emerald-400/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:scale-105">
+                        <div class="absolute inset-0 bg-linear-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-emerald-500/10 rounded-xl mb-3 group-hover:bg-emerald-500/20 transition-colors">
+                                <i class="bi bi-heart-fill text-emerald-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Likes</h3>
+                            <p class="text-white text-2xl font-bold font-mono">{{video().statistics.likeCount}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisor sutil -->
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <!-- Formulário de anotações -->
+                <div class="flex flex-col gap-6">
+                    <!-- Campo Título -->
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-2 text-white font-bold tracking-wide">
+                            <div class="flex items-center justify-center w-8 h-8 bg-green-500/10 rounded-lg">
+                                <i class="bi bi-pencil text-green-400 text-sm"></i>
+                            </div>
+                            <span>Título da sua ideia</span>
+                        </label>
+                        <input 
+                            #titleInput
+                            class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all hover:border-white/20"
+                            type="text" 
+                            placeholder="Ex: Como melhorar produtividade com técnicas de..."
+                        >
+                    </div>
+
+                    <!-- Campo Anotações -->
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-2 text-white font-bold tracking-wide">
+                            <div class="flex items-center justify-center w-8 h-8 bg-green-500/10 rounded-lg">
+                                <i class="bi bi-pencil-square text-green-400 text-sm"></i>
+                            </div>
+                            <span>Anotações detalhadas</span>
+                        </label>
+                        <div class="relative">
+                            <textarea 
+                                #annotationsInput
+                                class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all min-h-37.5 resize-y hover:border-white/20"
+                                placeholder="📝 Escreva suas observações, insights e pontos-chave deste vídeo...
+
+💡 Dicas:
+- Que problema este vídeo resolve?
+- Quais os principais aprendizados?
+- Como aplicar isso no seu projeto?"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divisor sutil -->
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <!-- Botões de ação com layout responsivo -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <!-- Botão Salvar (principal) -->
+                    <button 
+                        (click)="saveNewIdea(titleInput.value, annotationsInput.value)" 
+                        class="flex-1 relative group bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-slate-900 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        <i class="bi bi-check-circle-fill text-xl relative z-10"></i>
+                        <span class="relative z-10">Salvar Ideia</span>
+                    </button> 
+                    
+                    <!-- Botão Desenhar -->
+                    <button 
+                        class="flex-1 sm:flex-initial relative group bg-white/5 hover:bg-white/10 border border-white/20 hover:border-green-400/50 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-linear-to-r from-green-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="bi bi-palette-fill text-lg relative z-10"></i>
+                        <span class="relative z-10">Desenhar</span>
+                    </button>
+                    
+                    <!-- Botão Cancelar -->
+                    <button 
+                        class="flex-1 sm:flex-initial relative group bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/30 hover:border-red-500 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="bi bi-x-circle-fill text-lg relative z-10"></i>
+                        <span class="relative z-10">Cancelar</span>
+                    </button>
+                </div>
             </div>
+
+            <!-- Brilho sutil no fundo do card -->
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/30 to-transparent"></div>
         </div>
     </div>
 </main>

@@ -1,54 +1,138 @@
-<main class="flex justify-center p-4 antialiased">
-    <div class="mt-6 w-full max-w-4xl">
-        <div class="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8 flex flex-col gap-8">
+<main class="flex justify-center p-4 md:p-6 antialiased">
+    <div class="mt-6 w-full max-w-5xl">
+        <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-3xl shadow-[0_8px_32px_0_rgba(16,185,129,0.15)] overflow-hidden">
             
-            <h2 class="text-center text-2xl text-white shadow font-bold">Video:</h2>
-            <div class="flex justify-center">
-                <iframe width="560" height="315" [src]="iframeUrl()" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent"></div>
             
-
-            <form [formGroup]="editForm">
-                <div class="flex flex-col gap-4">
-                    <div class="flex items-center gap-2">
-                        <i class="bi bi-pencil text-green-400"></i>
-                        <h2 class="text-white font-bold tracking-wide">Título da ideia</h2>
+            <div class="p-6 md:p-10 flex flex-col gap-8">
+                
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/30 px-4 py-2 rounded-full">
+                        <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest">Editando ideia</span>
                     </div>
-                    <input
-                        formControlName="title"
-                        
-                        class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all resize-none"
-                    type="text" name="title" id="title">
-
-                    <div class="flex items-center gap-2">
-                        <i class="bi bi-pencil-square text-green-400"></i>
-                        <h2 class="text-white font-bold tracking-wide">Anotações da ideia</h2>
-                    </div>
-                    <textarea
-                        formControlName="annotations"
-                        class="w-full bg-slate-950/40 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/30 transition-all min-h-37.5 resize-none"
-                        placeholder="Escreva algo importante sobre este vídeo..."
-                        ></textarea>
                 </div>
-            </form>
 
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-linear-to-r from-green-500/20 via-cyan-500/20 to-emerald-500/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-50 group-hover:opacity-75"></div>
+                    
+                    <div class="relative mb-4">
+                        <h2 class="text-white text-xl md:text-2xl font-bold bg-linear-to-r from-white via-green-100 to-cyan-100 bg-clip-text text-center">
+                            <i class="bi bi-play-circle-fill text-green-400 mr-2"></i>
+                            Visualizando vídeo
+                        </h2>
+                    </div>
+                    
+                    <div class="relative bg-slate-950/50 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="aspect-video">
+                            <iframe 
+                                class="w-full h-full"
+                                [src]="iframeUrl()" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="flex flex-wrap justify-center items-center gap-4 pt-2">
-                <button (click)="submit()"  class="flex-1 min-w-30 bg-green-500 hover:bg-green-400 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-green-500/20" type="button">
-                    <i class="bi bi-check-lg"></i>
-                    <span>Salvar Alterações</span>
-                </button> 
-                
-                <button class="flex-1 min-w-30 bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 border border-white/10" type="button">
-                    <i class="bi bi-palette"></i>
-                    <span>Desenhar</span>
-                </button>
-                
-                <button class="flex-1 min-w-30 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/50 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2" type="button">
-                    <i class="bi bi-trash"></i>
-                    <span>Deletar</span>
-                </button>
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <form [formGroup]="editForm" class="flex flex-col gap-6">
+                    
+                    <div class="space-y-3">
+                        <label for="title" class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer">
+                            <div class="flex items-center justify-center w-10 h-10 bg-green-500/10 rounded-xl group-hover:bg-green-500/20 transition-colors">
+                                <i class="bi bi-pencil-fill text-green-400 text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block">Título da sua ideia</span>
+                                <span class="text-xs text-slate-400 font-normal">Dê um nome memorável para sua anotação</span>
+                            </div>
+                        </label>
+                        <div class="relative">
+                            <input
+                                formControlName="title"
+                                id="title"
+                                name="title"
+                                class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 pr-12 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all hover:border-white/20 font-medium"
+                                type="text" 
+                                placeholder="Ex: Como melhorar produtividade com técnicas de..."
+                            >
+                            <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs">
+                                <i class="bi bi-file-text"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label for="annotations" class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer">
+                            <div class="flex items-center justify-center w-10 h-10 bg-cyan-500/10 rounded-xl group-hover:bg-cyan-500/20 transition-colors">
+                                <i class="bi bi-pencil-square text-cyan-400 text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block">Anotações detalhadas</span>
+                                <span class="text-xs text-slate-400 font-normal">Registre insights, pontos importantes e suas reflexões</span>
+                            </div>
+                        </label>
+                        <div class="relative">
+                            <textarea
+                                formControlName="annotations"
+                                id="annotations"
+                                class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all min-h-45 resize-y hover:border-white/20 font-normal leading-relaxed"
+                                placeholder="📝 Escreva suas observações, insights e pontos-chave...
+
+                                    💡 Sugestões:
+                                    - Qual o conceito principal apresentado?
+                                    - Como isso se relaciona com seus objetivos?
+                                    - Quais ações você pode tomar baseado nisso?"
+                            ></textarea>
+                            <div class="absolute bottom-3 right-3 text-slate-500 text-xs bg-slate-950/80 px-2 py-1 rounded-lg border border-white/5">
+                                <i class="bi bi-textarea-t"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    
+                    <button 
+                        (click)="submit()"  
+                        class="flex-1 relative group bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-slate-900 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        <i class="bi bi-check-circle-fill text-xl relative z-10"></i>
+                        <span class="relative z-10 text-base">Salvar Alterações</span>
+                    </button> 
+                    
+                    <button 
+                        class="flex-1 sm:flex-initial relative group bg-white/5 hover:bg-white/10 border border-white/20 hover:border-purple-400/50 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-linear-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="bi bi-palette-fill text-lg relative z-10 group-hover:text-purple-400 transition-colors"></i>
+                        <span class="relative z-10 group-hover:text-purple-100 transition-colors">Desenhar</span>
+                    </button>
+                    
+                    <button 
+                        class="flex-1 sm:flex-initial relative group bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/30 hover:border-red-500 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-linear-to-r from-red-600 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="bi bi-trash-fill text-lg relative z-10"></i>
+                        <span class="relative z-10">Deletar</span>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 text-slate-500 text-xs">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Suas alterações serão salvas automaticamente</span>
+                </div>
             </div>
+
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-cyan-400/30 to-transparent"></div>
         </div>
     </div>
 </main>

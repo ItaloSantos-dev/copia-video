@@ -1,75 +1,112 @@
-<main class="flex justify-center p-4 antialiased relative">
-    <div class="absolute top-0 right-1/4 w-64 h-64 bg-green-500/5 rounded-full blur-[100px] -z-10"></div>
-
-    <div class="flex flex-col gap-6 w-full max-w-5xl">
-        
-        <div class="flex items-center gap-3 px-2">
-            <div class="p-2 bg-green-500/10 rounded-lg border border-green-500/20">
-                <i class="bi bi-lightbulb text-green-400 text-xl"></i>
+<main class="flex justify-center p-4 antialiased relative ">
+    <div class="flex flex-col gap-8 w-full max-w-6xl relative">
+        <!-- Header simplificado -->
+        <div class="flex items-center gap-4 px-2">
+            <div class="relative p-3 bg-linear-to-br from-green-500/20 to-emerald-600/20 rounded-2xl border border-green-500/30 backdrop-blur-sm">
+                <i class="bi bi-lightbulb text-green-400 text-2xl"></i>
             </div>
             <div>
-                <h2 class="text-white text-xl font-bold tracking-tight">Minhas Ideias Salvas</h2>
-                <p class="text-slate-400 text-xs uppercase tracking-widest font-medium">Gerencie suas anotações e insights</p>
+                <h2 class="text-white text-2xl font-bold tracking-tight">
+                    Minhas Ideias Salvas
+                </h2>
+                <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-semibold flex items-center gap-2">
+                    <span class="w-8 h-px bg-linear-to-br from-green-500/50 to-transparent"></span>
+                    Gerencie suas anotações e insights
+                </p>
             </div>
         </div>
 
-        <div class="bg-white/5 border border-white/10 shadow-2xl rounded-4xl overflow-hidden backdrop-blur-xl">
-            <div class="grid grid-cols-4 gap-4 p-6 text-center bg-white/5 border-b border-white/10 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
-                <div class="pl-2">Preview</div>
-                <div>Título da ideia</div>
-                <div class="text-center">Resumo da Ideia</div>
-                <div class="text-center">Ações</div>
+        <!-- Container principal -->
+        <div class="bg-linear-to-br from-white/[0.07] to-white/2 border border-white/10 shadow-2xl rounded-3xl overflow-hidden backdrop-blur-2xl">
+            
+            <!-- Header da tabela -->
+            <div class="grid grid-cols-4 gap-4 p-6 text-center bg-linear-to-br from-white/8 to-white/4border-b border-white/10">
+                <div class="pl-2 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black flex items-center gap-2">
+                    <div class="w-1 h-4 bg-green-500 rounded-full"></div>
+                    Preview
+                </div>
+                <div class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Título da ideia</div>
+                <div class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Resumo da Ideia</div>
+                <div class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">Ações</div>
             </div>
 
-            <div class="min-h-[40vh] max-h-[65vh] overflow-y-auto custom-scrollbar divide-y divide-white/5">
+            <!-- Lista de ideias -->
+            <div class="min-h-[40vh] max-h-[65vh] overflow-y-auto ideas-scrollbar divide-y divide-white/5">
                 @for(idea of ideas() ; track idea.title){
-                    <div class="grid grid-cols-4 gap-4 p-6 items-center hover:bg-white3 transition-all group">
+                    <div class="grid grid-cols-4 gap-4 p-6 items-center hover:bg-white/5 transition-all duration-300 group/item">
                         
-                        <div class="relative">
+                        <!-- Preview do vídeo -->
+                        <div class="relative pl-2">
                             <a [href]="'http://youtube.com/watch?v='+idea.video_id" target="_blank" rel="noopener noreferrer" 
-                               class="block relative overflow-hidden rounded-xl aspect-video shadow-lg group-hover:ring-2 ring-green-400/50 transition-all duration-500">
-                                <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
-                                     [src]="'https://i.ytimg.com/vi/' + idea.video_id +'/mqdefault.jpg'" alt="thumbnail">
-                                <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors"></div>
-                                <div class="absolute bottom-1 right-1 bg-black/60 backdrop-blur-md p-1 rounded-md">
-                                    <i class="bi bi-youtube text-red-500 text-xs"></i>
+                               class="block relative overflow-hidden rounded-2xl aspect-video shadow-lg transition-all duration-500">
+                                
+                                <div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 group-hover/item:ring-green-400/50 group-hover/item:ring-2 transition-all">
+                                    <img class="w-full h-full object-cover transform group-hover/item:scale-110 transition-transform duration-700" 
+                                         [src]="'https://i.ytimg.com/vi/' + idea.video_id +'/mqdefault.jpg'" 
+                                         alt="thumbnail">
+                                    
+                                    <!-- Overlay gradient -->
+                                    <div class="absolute inset-0 bg-linear-to-t from-slate-900/40 via-transparent to-transparent group-hover/item:from-slate-900/20 transition-colors"></div>
+                                    
+                                    <!-- Badge YouTube -->
+                                    <div class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-md px-2 py-1 rounded-lg border border-white/10 flex items-center gap-1.5 group-hover/item:bg-red-600/90 transition-colors">
+                                        <i class="bi bi-youtube text-red-500 group-hover/item:text-white text-xs transition-colors"></i>
+                                        <span class="text-white text-[10px] font-semibold opacity-0 group-hover/item:opacity-100 transition-opacity">Play</span>
+                                    </div>
+                                    
+                                    <!-- Play icon overlay -->
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
+                                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30">
+                                            <i class="bi bi-play-fill text-white text-xl ml-1"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </a> 
                         </div>
 
+                        <!-- Título -->
                         <div class="pr-4">
-                            <h2 class="text-white text-center text-sm font-semibold line-clamp-2 leading-relaxed group-hover:text-green-400 transition-colors">
+                            <h2 class="text-white text-center text-sm font-semibold line-clamp-2 leading-relaxed group-hover/item:text-green-400 transition-colors duration-300">
                                 {{idea.title}}
                             </h2>
                         </div>
 
+                        <!-- Resumo -->
                         <div class="text-center px-2">
-                            <div class="bg-slate-950/40 border border-white/5 rounded-xl p-3 inline-block w-full">
-                                <p class="text-slate-300 text-xs italic line-clamp-3 leading-snug">
+                            <div class="bg-slate-950/60 border border-white/10 rounded-2xl p-4 backdrop-blur-sm hover:border-green-500/30 transition-colors">
+                                <p class="text-slate-300 text-xs italic line-clamp-3 leading-relaxed">
                                     "{{idea.annotations}}"
                                 </p>
                             </div>
                         </div>
 
+                        <!-- Botões de ação -->
                         <div class="flex justify-center items-center gap-3">
-                            <button [routerLink]="['/ideas/' + idea.id]" title="Editar ideia"
-                                    class="p-3 bg-white/5 hover:bg-yellow-500 text-yellow-500 hover:text-slate-950 border border-white/10 rounded-xl transition-all active:scale-90 flex items-center justify-center shadow-lg hover:shadow-yellow-500/20 cursor-pointer">
+                            <button [routerLink]="['/ideas/' + idea.id]" 
+                                    title="Editar ideia"
+                                    class="p-3.5 bg-white/5 hover:bg-linear-to-br hover:from-yellow-500 hover:to-amber-500 text-yellow-400 hover:text-slate-950 border border-white/10 hover:border-yellow-500/50 rounded-xl transition-all duration-300 active:scale-90 flex items-center justify-center cursor-pointer">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
+                            
                             <button title="Excluir ideia"
                                     (click)="deleIdea(idea.id!)"
-                                    class="p-3 bg-white/5 hover:bg-red-500 text-red-500 hover:text-white border border-white/10 rounded-xl transition-all active:scale-90 flex items-center justify-center shadow-lg hover:shadow-red-500/20 cursor-pointer">
+                                    class="p-3.5 bg-white/5 hover:bg-linear-to-br hover:from-red-500 hover:to-rose-500 text-red-400 hover:text-white border border-white/10 hover:border-red-500/50 rounded-xl transition-all duration-300 active:scale-90 flex items-center justify-center cursor-pointer">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </div>
                     </div>
                 } @empty {
-                    <div class="flex flex-col items-center justify-center py-24 text-slate-500">
-                        <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
-                            <i class="bi bi-inbox text-4xl opacity-20"></i>
+                    <div class="flex flex-col items-center justify-center py-32 text-slate-500">
+                        <div class="w-24 h-24 bg-linear-to-br from-white/10 to-white/5 rounded-full flex items-center justify-center border border-white/10 mb-6">
+                            <i class="bi bi-inbox text-5xl opacity-20 text-green-400/50"></i>
                         </div>
-                        <p class="font-medium tracking-wide">Sua lista de ideias está vazia</p>
-                        <p class="text-xs opacity-60">Comece a explorar vídeos para criar novas anotações.</p>
+                        
+                        <p class="font-semibold tracking-wide text-base mb-2">
+                            Sua lista de ideias está vazia
+                        </p>
+                        <p class="text-xs opacity-60">
+                            Comece a explorar vídeos para criar novas anotações
+                        </p>
                     </div>
                 }
             </div>

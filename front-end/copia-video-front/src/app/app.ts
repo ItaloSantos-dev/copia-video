@@ -11,4 +11,11 @@ import { AuthService } from './services/auth/auth-service';
 export class App {
   authService = inject(AuthService)
   protected readonly title = signal('copia-video-front');
+
+  mobileMenuOpen = false;
+
+  toggleMobileMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+  
 }
