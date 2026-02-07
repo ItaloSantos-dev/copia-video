@@ -1,0 +1,78 @@
+<main class="flex justify-center p-4 antialiased relative">
+    <div class="absolute top-0 right-1/4 w-64 h-64 bg-green-500/5 rounded-full blur-[100px] -z-10"></div>
+
+    <div class="flex flex-col gap-6 w-full max-w-5xl">
+        
+        <div class="flex items-center gap-3 px-2">
+            <div class="p-2 bg-green-500/10 rounded-lg border border-green-500/20">
+                <i class="bi bi-lightbulb text-green-400 text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-white text-xl font-bold tracking-tight">Minhas Ideias Salvas</h2>
+                <p class="text-slate-400 text-xs uppercase tracking-widest font-medium">Gerencie suas anotações e insights</p>
+            </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 shadow-2xl rounded-4xl overflow-hidden backdrop-blur-xl">
+            <div class="grid grid-cols-4 gap-4 p-6 text-center bg-white/5 border-b border-white/10 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+                <div class="pl-2">Preview</div>
+                <div>Título da ideia</div>
+                <div class="text-center">Resumo da Ideia</div>
+                <div class="text-center">Ações</div>
+            </div>
+
+            <div class="min-h-[40vh] max-h-[65vh] overflow-y-auto custom-scrollbar divide-y divide-white/5">
+                @for(idea of ideas() ; track idea.title){
+                    <div class="grid grid-cols-4 gap-4 p-6 items-center hover:bg-white3 transition-all group">
+                        
+                        <div class="relative">
+                            <a [href]="'http://youtube.com/watch?v='+idea.video_id" target="_blank" rel="noopener noreferrer" 
+                               class="block relative overflow-hidden rounded-xl aspect-video shadow-lg group-hover:ring-2 ring-green-400/50 transition-all duration-500">
+                                <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
+                                     [src]="'https://i.ytimg.com/vi/' + idea.video_id +'/mqdefault.jpg'" alt="thumbnail">
+                                <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors"></div>
+                                <div class="absolute bottom-1 right-1 bg-black/60 backdrop-blur-md p-1 rounded-md">
+                                    <i class="bi bi-youtube text-red-500 text-xs"></i>
+                                </div>
+                            </a> 
+                        </div>
+
+                        <div class="pr-4">
+                            <h2 class="text-white text-center text-sm font-semibold line-clamp-2 leading-relaxed group-hover:text-green-400 transition-colors">
+                                {{idea.title}}
+                            </h2>
+                        </div>
+
+                        <div class="text-center px-2">
+                            <div class="bg-slate-950/40 border border-white/5 rounded-xl p-3 inline-block w-full">
+                                <p class="text-slate-300 text-xs italic line-clamp-3 leading-snug">
+                                    "{{idea.annotations}}"
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center items-center gap-3">
+                            <button title="Editar ideia"
+                                    class="p-3 bg-white/5 hover:bg-yellow-500 text-yellow-500 hover:text-slate-950 border border-white/10 rounded-xl transition-all active:scale-90 flex items-center justify-center shadow-lg hover:shadow-yellow-500/20 cursor-pointer">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+
+                            <button title="Excluir ideia"
+                                    class="p-3 bg-white/5 hover:bg-red-500 text-red-500 hover:text-white border border-white/10 rounded-xl transition-all active:scale-90 flex items-center justify-center shadow-lg hover:shadow-red-500/20 cursor-pointer">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
+                    </div>
+                } @empty {
+                    <div class="flex flex-col items-center justify-center py-24 text-slate-500">
+                        <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
+                            <i class="bi bi-inbox text-4xl opacity-20"></i>
+                        </div>
+                        <p class="font-medium tracking-wide">Sua lista de ideias está vazia</p>
+                        <p class="text-xs opacity-60">Comece a explorar vídeos para criar novas anotações.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>

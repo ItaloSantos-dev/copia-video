@@ -40,7 +40,6 @@ testem.log
 __screenshots__/
 
 /src/app/components/teste
-/src/app/components/idea/all-ideas
 /src/mock
 
 # System files
