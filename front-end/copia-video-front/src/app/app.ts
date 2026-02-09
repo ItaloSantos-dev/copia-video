@@ -17,5 +17,9 @@ export class App {
   toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
   }
+
+  logout(){
+    this.authService.logout();
+  }
   
 }
