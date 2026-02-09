@@ -33,6 +33,14 @@ public class Idea {
     public Idea() {
     }
 
+    public Idea(UUID id, String title, String annotations, String video_id, User user) {
+        this.id = id;
+        this.title = title;
+        this.annotations = annotations;
+        this.video_id = video_id;
+        this.user = user;
+    }
+
     public Idea(User user, String video_id, String annotations, String title) {
         this.annotations = annotations;
         this.title = title;

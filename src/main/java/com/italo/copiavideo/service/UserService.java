@@ -23,4 +23,16 @@ public class UserService implements UserDetailsService {
     public List<User> getAall(){
         return  this.userRepository.findAll();
     }
+
+    public User getUserByEmail(String email){
+        return (User)this.userRepository.findByEmail(email);
+    }
+
+    public User verifyIfUserIsBannid(User user){
+        if(user.getName().equals("italo")) throw new RuntimeException("toraram o canenco de quem ta lendo");
+        else {
+            return user;
+        }
+    }
+
 }

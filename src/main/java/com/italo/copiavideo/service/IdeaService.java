@@ -34,8 +34,7 @@ public class IdeaService {
         return this.ideaRepository.findAll();
     }
 
-    public List<Idea> getMyIdeas(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<Idea> getMyIdeas(User user){
         return this.ideaRepository.findByUser_id(user.getId());
     }
 
@@ -67,13 +66,13 @@ public class IdeaService {
         this.ideaRepository.deleteById(UUID.fromString(id));
     }
 
-    public Idea getIdeaById(String id){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Idea getIdeaById(String id, User user){
+
         Idea idea = this.ideaRepository.findById(UUID.fromString(id)).get();
+
         if(!idea.getUser().getId().equals(user.getId())){
             throw  new RuntimeException("nao é o memo user");
         }
         return idea;
-
     }
 }

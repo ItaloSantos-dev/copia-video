@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.italo.copiavideo.DTO.request.CreateIdeaDTO;
 import com.italo.copiavideo.DTO.request.UpdateIdeaDTO;
 import com.italo.copiavideo.DTO.response.IdeaDTO;
+import com.italo.copiavideo.DTO.response.IdeaSimplifiedDTO;
 import com.italo.copiavideo.model.Idea;
+import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.service.IdeaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +36,14 @@ public class IdeaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Idea>> getMyIdeas(){
-        return ResponseEntity.ok(this.ideaService.getMyIdeas());
+    public ResponseEntity<List<IdeaSimplifiedDTO>> getMyIdeas(@AuthenticationPrincipal User user){
+        List<Idea> ideas = this.ideaService.getMyIdeas(user);
+
+        List<IdeaSimplifiedDTO> response = ideas.stream().map(idea ->
+                new IdeaSimplifiedDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations())
+        ).toList();
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
@@ -61,8 +69,8 @@ public class IdeaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IdeaDTO> getIdeaById(@PathVariable String id){
-        Idea idea = this.ideaService.getIdeaById(id);
+    public ResponseEntity<IdeaDTO> getIdeaById(@PathVariable String id, @AuthenticationPrincipal User user){
+        Idea idea = this.ideaService.getIdeaById(id, user);
         return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName()));
     }
 }
