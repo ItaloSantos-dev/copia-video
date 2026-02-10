@@ -62,9 +62,8 @@ public class IdeaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Idea> deleteIdea(@PathVariable String id){
-        System.out.println("id:" + id);
-        this.ideaService.deleteIdea(id);
+    public ResponseEntity<Idea> deleteIdea(@PathVariable String id, @AuthenticationPrincipal User user){
+        this.ideaService.deleteIdea(id, user);
         return ResponseEntity.ok().build();
     }
 

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -61,8 +62,13 @@ public class IdeaService {
         return this.ideaRepository.save(idea);
     }
 
-    public void deleteIdea(String id){
-        if (!this.ideaRepository.existsById(UUID.fromString(id))) throw new ResourceNotFoundException("ideia", id.toString());
+    public void deleteIdea(String id, User user){
+        String email = this.entityManager.getReference(Idea.class, UUID.fromString(id)).getUser().getEmail();
+
+        if (!this.ideaRepository.existsById(UUID.fromString(id)) ||
+                !email.equals(user.getEmail())
+        ) throw new ResourceNotFoundException("ideia", id.toString());
+
         this.ideaRepository.deleteById(UUID.fromString(id));
     }
 
@@ -71,7 +77,7 @@ public class IdeaService {
         Idea idea = this.ideaRepository.findById(UUID.fromString(id)).get();
 
         if(!idea.getUser().getId().equals(user.getId())){
-            throw  new RuntimeException("nao é o memo user");
+            throw  new ResourceNotFoundException("ideia", idea.getId().toString());
         }
         return idea;
     }

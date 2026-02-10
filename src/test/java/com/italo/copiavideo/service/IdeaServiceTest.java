@@ -1,5 +1,6 @@
 package com.italo.copiavideo.service;
 
+import com.italo.copiavideo.exceptions.ResourceNotFoundException;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.model.enums.RoleUser;
@@ -37,7 +38,7 @@ class IdeaServiceTest {
     EntityManager entityManager;
 
     @Test
-    @DisplayName("The user is trying to find an idea of \u200B\u200Byours.")
+    @DisplayName("The user is trying to find an idea of yours.")
     void getIdeaByIdCase1() {
         UUID idUser = UUID.randomUUID();
         User user1 = new User(idUser, "italo", "italo@.com", "1131", RoleUser.USER);
@@ -69,7 +70,7 @@ class IdeaServiceTest {
 
         Mockito.when(this.ideaRepository.findById(idea.getId())).thenReturn(Optional.of(idea));
 
-        Assertions.assertThrows(RuntimeException.class, ()->{this.ideaService.getIdeaById(idea.getId().toString(), user2);});
+        Assertions.assertThrows(ResourceNotFoundException.class, ()->{this.ideaService.getIdeaById(idea.getId().toString(), user2);});
     }
 
 

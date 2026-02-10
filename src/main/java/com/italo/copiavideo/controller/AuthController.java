@@ -9,6 +9,8 @@ import com.italo.copiavideo.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,17 +22,24 @@ public class AuthController {
     private AuthService authService;
 
     @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody RegisterUserDTO registerUserDTO){
-        User newUser = this.authService.register(registerUserDTO);
+
+        User newUser = this.authService.register(registerUserDTO, this.encoder);
+
         return ResponseEntity.ok(new UserDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole()));
     }
 
     @PostMapping("login")
-    public ResponseEntity register(@RequestBody LoginUserDTO loginUserDTO){
+    public ResponseEntity login(@RequestBody LoginUserDTO loginUserDTO){
+
         Authentication auth = this.authService.login(loginUserDTO);
+
         String token = this.tokenService.createToken( (User) auth.getPrincipal());
 
         return ResponseEntity.ok(token);
