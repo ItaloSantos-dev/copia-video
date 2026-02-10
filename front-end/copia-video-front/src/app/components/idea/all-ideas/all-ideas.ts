@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { IdeaService } from '../../../services/ideaService/idea-service';
 import { Idea } from '../../../types/internal/idea';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { StatusError } from '../../../types/internal/status-error';
 
 @Component({
   selector: 'app-all-ideas',
@@ -12,6 +13,7 @@ import { RouterLink } from "@angular/router";
 export class AllIdeas {
   ideaService = inject(IdeaService)
   ideas = signal(<Idea[]>([]))
+  router = inject(Router);
 
 
   ngOnInit(){
@@ -24,7 +26,11 @@ export class AllIdeas {
         this.ideas.set(dados);
       },
       error:(erro) => {
-        console.log(erro);
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+        this.router.navigate(['/error'], {state: {dado:dado}})
         
       }
     })
@@ -35,12 +41,14 @@ export class AllIdeas {
     
     this.ideaService.deleteIdeaById(id).subscribe({
       next: ()=>{
-        this.loadMyIdeas()
-        console.log("Idea apagada com sucesso");  
+        this.loadMyIdeas()  
       },
       error:(erro)=>{
-        console.log("Erro ao deletar ideia \n" + erro);
-        
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+
       }
     })
     

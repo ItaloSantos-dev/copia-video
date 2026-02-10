@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { VideoSearch } from '../../types/external/video-search';
 import { isEmpty } from 'rxjs';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { VideoService } from '../../services/videoService/video-service';
 import { Video } from '../../types/external/video';
 import { AuthService } from '../../services/auth/auth-service';
+import { StatusError } from '../../types/internal/status-error';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,14 @@ import { AuthService } from '../../services/auth/auth-service';
 export class Home {
   videoService = inject(VideoService);
   authService = inject(AuthService);
+  router = inject(Router);
 
   search = signal("");
   videos = signal(<VideoSearch[]>([]));
 
+  ngOnInit(){
+
+  }
   
   getMockData(){
     this.videos.set(this.videoService.getMockData())
@@ -37,7 +42,11 @@ export class Home {
           this.videos.set(dados);
         },
         error:(erro)=>{
-          console.log(erro);
+          let dado:StatusError = {
+            status:erro.error.status,
+            menssage:erro.error.menssage
+          }
+          this.router.navigate(['/error'], {state: {dado:dado}})
         }
       })
       

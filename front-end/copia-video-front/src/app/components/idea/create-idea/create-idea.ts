@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Idea } from '../../../types/internal/idea';
 import { IdeaService } from '../../../services/ideaService/idea-service';
 import { VideoService } from '../../../services/videoService/video-service';
+import { StatusError } from '../../../types/internal/status-error';
 
 
 @Component({
@@ -41,7 +42,11 @@ export class CreateIdea {
           this.video.set(dado);
         },
         error:(erro)=>{
-          console.log("Deu erro" + erro);
+          let dado:StatusError = {
+            status:erro.error.status,
+            menssage:erro.error.menssage
+          }
+          this.router.navigate(['/error'], {state: {dado:dado}})
         }
       });
 
@@ -66,7 +71,11 @@ export class CreateIdea {
         this.router.navigate(['/ideas'])
       },
       error:(erro)=>{
-        console.log(erro);
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+        this.router.navigate(['/error'], {state: {dado:dado}})
         
       }
     })

@@ -4,6 +4,7 @@ import { IdeaService } from '../../../services/ideaService/idea-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { StatusError } from '../../../types/internal/status-error';
 
 @Component({
   selector: 'app-edit-idea',
@@ -46,7 +47,11 @@ export class EditIdea {
           });
         },
         error:(erro)=>{
-          console.log(erro);
+          let dado:StatusError = {
+            status:erro.error.status,
+            menssage:erro.error.menssage
+          }
+          this.router.navigate(['/error'], {state: {dado: dado}})
           
         },
       })
@@ -63,7 +68,11 @@ export class EditIdea {
         this.router.navigate(["/ideas"]);
       },
       error:(erro) => {
-        console.log(erro);
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+        this.router.navigate(['/error'], {state: {dado: dado}});
         
       },
     })

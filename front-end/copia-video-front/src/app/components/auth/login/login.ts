@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { LoginDTO } from '../../../types/dto/login-dto';
 import { AuthService } from '../../../services/auth/auth-service';
 import { Router, RouterLink } from '@angular/router';
+import { StatusError } from '../../../types/internal/status-error';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,11 @@ export class Login {
         this.router.navigate(['/']);
       },
       error:(erro)=>{
-        console.log(erro);
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+        this.router.navigate(['/error'], {state: {dado:dado}})
       }
     })
   }

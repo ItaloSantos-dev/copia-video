@@ -1,25 +1,18 @@
 <main class="flex items-center justify-center  p-4">
     <div class="flex flex-col gap-6 w-full max-w-md relative z-10">
         
-        <!-- Card principal do login -->
         <form [formGroup]="formLogin" (ngSubmit)="submit()" 
               class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(16,185,129,0.2)] overflow-hidden">
             
-            <!-- Brilho superior -->
             <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent"></div>
             
-            <!-- Conteúdo do form -->
             <div class="p-8 flex flex-col gap-6">
                 
-                <!-- Header com logo/título -->
                 <div class="relative group">
-                    <!-- Glow effect -->
                     <div class="absolute -inset-1 bg-linear-to-r from-green-500/30 to-emerald-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                     
-                    <!-- Badge de boas-vindas -->
                     <div class="relative bg-linear-to-br from-white/10 to-white/5 border border-white/20 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
                         <div class="flex flex-col items-center gap-3">
-                            <!-- Ícone animado -->
                             <div class="flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-2xl group-hover:scale-110 transition-transform duration-300">
                                 <i class="bi bi-shield-check text-green-400 text-3xl"></i>
                             </div>
@@ -34,10 +27,8 @@
                     </div>
                 </div>
 
-                <!-- Divisor -->
                 <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
 
-                <!-- Mensagem de erro - Email -->
                 @if(formLogin.get('email')?.invalid && formLogin.get('email')?.touched) {
                     <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
                         <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
@@ -45,7 +36,6 @@
                     </div>
                 }
                 
-                <!-- Campo Email -->
                 <div class="flex flex-col gap-3">
                     <label class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer" for="email">
                         <div class="flex items-center justify-center w-9 h-9 bg-green-500/10 rounded-lg group-hover:bg-green-500/20 transition-colors">
@@ -65,7 +55,6 @@
                     </div>
                 </div>
 
-                <!-- Mensagem de erro - Senha -->
                 @if(formLogin.get('password')?.invalid && formLogin.get('password')?.touched) {
                     <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
                         <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
@@ -73,7 +62,6 @@
                     </div>
                 }
 
-                <!-- Campo Senha -->
                 <div class="flex flex-col gap-3">
                     <label class="flex items-center gap-2 text-white font-bold tracking-wide group cursor-pointer" for="password">
                         <div class="flex items-center justify-center w-9 h-9 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-colors">
@@ -93,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- Link esqueci senha (opcional) -->
                 <div class="text-right -mt-2">
                     <a href="#" class="text-slate-400 hover:text-green-400 text-xs font-medium transition-colors inline-flex items-center gap-1">
                         <span>Esqueceu a senha?</span>
@@ -101,10 +88,8 @@
                     </a>
                 </div>
 
-                <!-- Divisor -->
                 <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
 
-                <!-- Botão de login -->
                 <div class="pt-2">
                     <button 
                         type="submit"
@@ -118,7 +103,6 @@
                     </button>
                 </div>
 
-                <!-- Link para registro -->
                 <div class="text-center">
                     <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-3 rounded-xl">
                         <span class="text-slate-400 text-sm">Não tem uma conta?</span>
@@ -133,11 +117,9 @@
                 </div>
             </div>
 
-            <!-- Brilho inferior -->
             <div class="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/30 to-transparent"></div>
         </form>
 
-        <!-- Footer -->
         <div class="text-center space-y-2">
             <div class="flex items-center justify-center gap-2">
                 <div class="h-px w-12 bg-linear-to-r from-transparent to-slate-600"></div>
