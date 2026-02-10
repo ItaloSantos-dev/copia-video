@@ -47,17 +47,19 @@ public class IdeaController {
     }
 
     @PostMapping
-    public ResponseEntity<IdeaDTO> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO){
+    public ResponseEntity<IdeaDTO> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO, @AuthenticationPrincipal User user){
         System.out.println(createIdeaDTO);
-        Idea newIdea = this.ideaService.createIdea(createIdeaDTO);
+        Idea newIdea = this.ideaService.createIdea(createIdeaDTO, user);
         return ResponseEntity.ok(new IdeaDTO(newIdea.getId(), newIdea.getTitle(), newIdea.getVideo_id(), newIdea.getAnnotations(), newIdea.getUser().getName()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<IdeaDTO> updateIdea(
             @PathVariable UUID id,
-            @RequestBody UpdateIdeaDTO updateIdeaDTO){
-        Idea idea = this.ideaService.updateIdea(id, updateIdeaDTO);
+            @RequestBody UpdateIdeaDTO updateIdeaDTO,
+            @AuthenticationPrincipal User user
+            ){
+        Idea idea = this.ideaService.updateIdea(id, updateIdeaDTO, user);
         return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName()));
     }
 

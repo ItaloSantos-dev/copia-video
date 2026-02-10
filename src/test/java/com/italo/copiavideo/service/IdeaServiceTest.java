@@ -1,5 +1,8 @@
 package com.italo.copiavideo.service;
 
+import com.italo.copiavideo.DTO.request.CreateIdeaDTO;
+import com.italo.copiavideo.DTO.request.UpdateIdeaDTO;
+import com.italo.copiavideo.exceptions.ResourceAlreadyExitsException;
 import com.italo.copiavideo.exceptions.ResourceNotFoundException;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
@@ -31,25 +34,27 @@ class IdeaServiceTest {
     @Mock
     IdeaRepository ideaRepository;
 
-    @Mock
-    UserRepository userRepository;
 
-    @Autowired
-    EntityManager entityManager;
+    private User createUser(){
+        UUID idUser = UUID.randomUUID();
+        return new User(idUser, "italo", idUser +"@.com", "1131", RoleUser.USER);
+    }
+
+    private Idea createIdea(User user){
+        UUID idIdea = UUID.randomUUID();
+        return  new Idea(idIdea, "aa", "aa", "aa", user);
+    }
 
     @Test
     @DisplayName("The user is trying to find an idea of yours.")
     void getIdeaByIdCase1() {
-        UUID idUser = UUID.randomUUID();
-        User user1 = new User(idUser, "italo", "italo@.com", "1131", RoleUser.USER);
+        User user = createUser();
 
-        UUID idIdea = UUID.randomUUID();
-        Idea idea = new Idea(idIdea, "aa", "aa", "aa", user1);
-
+        Idea idea = createIdea(user);
 
         Mockito.when(this.ideaRepository.findById(idea.getId())).thenReturn(Optional.of(idea));
 
-        Idea result = this.ideaService.getIdeaById(idea.getId().toString(), user1);
+        Idea result = this.ideaService.getIdeaById(idea.getId().toString(), user);
 
         Assertions.assertEquals(result, idea);
 
@@ -58,20 +63,55 @@ class IdeaServiceTest {
     @Test
     @DisplayName("The user is trying to find an idea from another user")
     void getIdeaByIdCase2(){
-        UUID idUser = UUID.randomUUID();
-        User user1 = new User(idUser, "italo", "italo@.com", "1131", RoleUser.USER);
+        User user1 = createUser();
+        Idea idea = createIdea(user1);
 
-        UUID idIdea = UUID.randomUUID();
-        Idea idea = new Idea(idIdea, "aa", "aa", "aa", user1);
-
-
-        UUID idUser2 = UUID.randomUUID();
-        User user2 = new User(idUser2, "italo", "italo2@.com", "1131", RoleUser.USER);
-
+        User user2 = createUser();
         Mockito.when(this.ideaRepository.findById(idea.getId())).thenReturn(Optional.of(idea));
 
         Assertions.assertThrows(ResourceNotFoundException.class, ()->{this.ideaService.getIdeaById(idea.getId().toString(), user2);});
     }
 
+
+    @Test
+    @DisplayName("Creating a idea with title already exists")
+    void createIdea() {
+        User user = createUser();
+        Idea idea = createIdea(user);
+        CreateIdeaDTO createIdeaDTO = new CreateIdeaDTO(idea.getTitle(), idea.getAnnotations(), idea.getVideo_id());
+
+        Mockito.when(this.ideaRepository.existsByTitleAndUserId(idea.getTitle(), user.getId())).thenReturn(true);
+
+        assertThrows(ResourceAlreadyExitsException.class, () -> {this.ideaService.createIdea(createIdeaDTO, user);});
+
+    }
+
+    @Test
+    void updateIdea() {
+        User user1 = createUser();
+        User user2 = createUser();
+        Idea idea = createIdea(user1);
+
+        UpdateIdeaDTO updateIdeaDTO = new UpdateIdeaDTO("aapo", "aak");
+
+        Mockito.when(this.ideaRepository.findById(idea.getId())).thenReturn(Optional.of(idea));
+
+        assertThrows(ResourceNotFoundException.class, ()-> {this.ideaService.updateIdea(idea.getId(), updateIdeaDTO, user2);});
+    }
+
+    @Test
+    @DisplayName("The idea is not of the user")
+    void deleteIdea() {
+        User user1 = createUser();
+        User user2 = createUser();
+        Idea idea = createIdea(user1);
+
+        Mockito.when(this.ideaRepository.findById(idea.getId())).thenReturn(Optional.of(idea));
+
+        assertThrows(ResourceNotFoundException.class, ()-> {
+            this.ideaService.deleteIdea(idea.getId().toString(), user2);
+        });
+
+    }
 
 }

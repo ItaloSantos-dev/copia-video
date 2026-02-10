@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface IdeaRepository extends JpaRepository<Idea, UUID> {
     List<Idea> findByUser_id(UUID user_id);
+
+    boolean existsByTitleAndUserId(String title, UUID user_id);
 }

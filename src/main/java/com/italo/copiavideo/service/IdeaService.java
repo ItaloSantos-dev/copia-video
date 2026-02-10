@@ -39,22 +39,20 @@ public class IdeaService {
         return this.ideaRepository.findByUser_id(user.getId());
     }
 
-    public Idea createIdea(CreateIdeaDTO request) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Idea createIdea(CreateIdeaDTO request, User user) {
+        if(this.ideaRepository.existsByTitleAndUserId(request.title(), user.getId())) throw  new ResourceAlreadyExitsException("ideia", "Títiulo");
 
         Idea ideaModel = new Idea(user, request.video_id(), request.annotations(), request.title());
 
-        try {
-            Idea newIdea = this.ideaRepository.save(ideaModel);
-            return newIdea;
-        }catch (DataIntegrityViolationException e){
-            throw new ResourceAlreadyExitsException("ideia", "título");
-        }
+        return  this.ideaRepository.save(ideaModel);
+
     }
 
-    public Idea updateIdea(UUID id, UpdateIdeaDTO request){
-        if( !this.ideaRepository.existsById(id)) ;
-        Idea idea = this.entityManager.getReference(Idea.class, id);
+    public Idea updateIdea(UUID id, UpdateIdeaDTO request, User user){
+        Idea idea = this.ideaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ideia", id.toString()));
+
+        if (!idea.getUser().getEmail().equals(user.getEmail())) throw new ResourceNotFoundException("ideia", id.toString());
+
 
         idea.setTitle(request.title());
         idea.setAnnotations(request.annotations());
@@ -63,11 +61,9 @@ public class IdeaService {
     }
 
     public void deleteIdea(String id, User user){
-        String email = this.entityManager.getReference(Idea.class, UUID.fromString(id)).getUser().getEmail();
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(()->new ResourceNotFoundException("ideia", id.toString()));
 
-        if (!this.ideaRepository.existsById(UUID.fromString(id)) ||
-                !email.equals(user.getEmail())
-        ) throw new ResourceNotFoundException("ideia", id.toString());
+        if (!idea.getUser().getEmail().equals(user.getEmail())) throw new ResourceNotFoundException("ideia", id.toString());
 
         this.ideaRepository.deleteById(UUID.fromString(id));
     }
