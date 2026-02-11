@@ -70,8 +70,7 @@ public class IdeaService {
 
     public Idea getIdeaById(String id, User user){
 
-        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).get();
-
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(()->new ResourceNotFoundException("ideia", id.toString()));
         if(!idea.getUser().getId().equals(user.getId())){
             throw  new ResourceNotFoundException("ideia", idea.getId().toString());
         }

@@ -14,6 +14,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class TokenService {
@@ -25,13 +27,14 @@ public class TokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
-    public String createToken(User user){
+    public String createToken(User user){;
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("copia-video-app")
                     .withExpiresAt(getExpiratedAt())
                     .withSubject(user.getUsername())
+                    .withClaim("role", user.getRole().name())
                     .sign(algorithm);
         }catch (JWTCreationException exception){
             throw new FailedCreateTokenException();

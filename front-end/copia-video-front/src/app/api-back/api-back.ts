@@ -66,4 +66,8 @@ export class ApiBack {
         return this.client.put<Idea>(this.urlBase + "/ideas/" + id, idea);
     }
 
+    getUsersCount():Observable<number>{
+        return this.client.get<number>(this.urlBase + "/users/count")
+    }
+
 }

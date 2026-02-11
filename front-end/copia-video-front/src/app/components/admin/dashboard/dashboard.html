@@ -1,0 +1,95 @@
+<main class="flex items-center justify-center mt-5 p-4 ">
+
+    <div class="relative z-10 ">
+
+        <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_0_rgba(0,0,0,0.3)] overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-emerald-400/50 to-transparent"></div>
+
+            <div class="p-8 md:p-10">
+                
+                <div class="mb-8 flex justify-between items-end border-b border-white/10 pb-4">
+                    <div>
+                        <h1 class="text-2xl font-black text-white tracking-tighter">DASHBOARD</h1>
+                        <p class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold">Visão Geral do Admin</p>
+                    </div>
+                    <div class="hidden md:block">
+                         <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-emerald-400 font-mono">SYSTEM: ONLINE</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 justify-center items-center  gap-6">
+
+                    <div class="col-span-1 md:col-span-2 group relative">
+
+                        <div class="absolute -inset-0.5 bg-linear-to-r from-red-500/20 to-orange-500/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="relative bg-slate-950/60 border border-white/10 rounded-2xl p-5 flex flex-row items-center justify-between gap-4">
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="relative shrink-0 w-12 h-12 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="bi bi-shield-exclamation text-red-500 text-xl"></i>
+                                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h3 class="text-white text-sm font-bold leading-none">Novos Logs Detectados</h3>
+                                    <p class="text-slate-400 text-xs mt-1">Existem atividades suspeitas não verificadas.</p>
+                                </div>
+                            </div>
+
+                            <button class="whitespace-nowrap px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wide transition-colors">
+                                Ver Logs
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative group w-full max-w-md mx-auto min-h-100  flex items-center justify-center">
+    
+                        <div class="absolute inset-0 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-md shadow-2xl"></div>
+
+                            <div class="relative p-8 flex flex-col items-center text-center gap-6 w-full">
+                                
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                                        <i class="bi bi-people text-emerald-400 text-2xl"></i>
+                                    </div>
+                                    <span class="text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10">
+                                        +12% esta semana
+                                    </span>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <h2 class="text-6xl font-black text-white tracking-tighter drop-shadow-lg">{{usersCount()}}</h2>
+                                    <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.3em]">Usuários Totais</p>
+                                </div>
+
+                                <div class="w-16 h-px bg-linear-to-r from-transparent via-white/20 to-transparent"></div>
+
+                                <div class="space-y-2">
+                                    <h3 class="text-white font-bold text-lg tracking-tight">Gestão de Usuários</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed max-w-60">
+                                        Acesse a lista completa para editar, banir ou aprovar novos membros.
+                                    </p>
+                                </div>
+
+                                <div class="w-full pt-2">
+                                    <a href="#" class="group/btn relative w-full bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 font-extrabold py-4 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-lg shadow-emerald-900/20 active:scale-95">
+                                        <div class="absolute inset-0 bg-white/20 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300"></div>
+                                        <span class="relative z-10 text-sm uppercase tracking-widest">Visualizar Lista</span>
+                                        <i class="bi bi-arrow-right relative z-10 group-hover/btn:translate-x-1 transition-transform"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        <div class="flex justify-center gap-6 mt-6">
+            <a href="#" class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors">Configurações</a>
+            <a href="#" class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors">Sair do Sistema</a>
+        </div>
+
+    </div>
+</main>

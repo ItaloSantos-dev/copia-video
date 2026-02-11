@@ -22,9 +22,7 @@ export class Home {
   search = signal("");
   videos = signal(<VideoSearch[]>([]));
 
-  ngOnInit(){
 
-  }
   
   getMockData(){
     this.videos.set(this.videoService.getMockData())

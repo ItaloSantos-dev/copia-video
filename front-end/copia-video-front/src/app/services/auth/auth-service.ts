@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../types/internal/user';
 import { RegisterDTO } from '../../types/dto/register-dto';
 import { Router } from '@angular/router';
+import {jwtDecode} from 'jwt-decode'
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +55,22 @@ export class AuthService {
   logout(){
     localStorage.clear();
     this.router.navigate(['/'])
+  }
+
+  getUserByToken(){
+    const token = localStorage.getItem('token') as string;
+    return jwtDecode(token);
+  }
+
+  getUserRoleBytoken(){
+    interface UserAttributes{
+      role:string
+      sub:string
+    }
+
+    const token = localStorage.getItem('token') as string;
+    
+    return jwtDecode<UserAttributes>(token);
+
   }
 }

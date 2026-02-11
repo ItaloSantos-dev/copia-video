@@ -7,6 +7,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.italo.copiavideo.DTO.youtube.VideoDTO;
 import com.italo.copiavideo.DTO.youtube.VideoSearchDTO;
+import com.italo.copiavideo.exceptions.ResourceNotFoundException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
@@ -54,6 +55,7 @@ public class YoutubeAPI {
             request.setKey(apiKey);
 
             VideoListResponse result = request.execute();
+            if(result.getItems().isEmpty()) throw new ResourceNotFoundException("video", id);
             VideoDTO response = mapper.readValue(result.getItems().get(0).toString(), VideoDTO.class);
             return  response;
 

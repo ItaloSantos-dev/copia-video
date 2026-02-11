@@ -7,6 +7,8 @@ import { Register } from './components/auth/register/register';
 import { AllIdeas } from './components/idea/all-ideas/all-ideas';
 import { EditIdea } from './components/idea/edit-idea/edit-idea';
 import { Error } from './components/error/error';
+import { Dashboard } from './components/admin/dashboard/dashboard';
+import { isAdminGuardGuard } from './security/guards/is-admin-guard-guard';
 
 export const routes: Routes = [
     {path:"", component: Home},
@@ -16,6 +18,7 @@ export const routes: Routes = [
     {path: "ideas", component:AllIdeas, canActivate:[authenticatedGuard]},
     {path: "ideas/:id", component:EditIdea, canActivate:[authenticatedGuard]},
     {path: "error", component:Error},
+    {path:"admin/dashboard", component:Dashboard, canActivate:[authenticatedGuard, isAdminGuardGuard]},
     {path:"**", component:Error}
 
 ];
