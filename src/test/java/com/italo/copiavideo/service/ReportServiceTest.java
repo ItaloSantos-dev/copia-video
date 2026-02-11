@@ -23,6 +23,6 @@ class ReportServiceTest {
         result.add("mod");
         result.add("vingadores");
         result.add("minecraft");
-        assertEquals(this.reportService.saveTheSearch("mod de vingadores no minecraft"), result);
+        assertEquals(this.reportService.saveSearch("mod de vingadores no minecraft"), result);
     }
 }
