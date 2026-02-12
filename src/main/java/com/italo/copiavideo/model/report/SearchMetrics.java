@@ -62,4 +62,10 @@ public class SearchMetrics {
         this.quantity = quantity;
         this.date = date;
     }
+
+    public SearchMetrics(String search, Integer quantity, LocalDate date) {
+        this.search = search;
+        this.quantity = quantity;
+        this.date = date;
+    }
 }
