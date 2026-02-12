@@ -1,15 +1,10 @@
 package com.italo.copiavideo.service.report.metrics;
 
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SearchServiceTest {
     @InjectMocks
-    private SearchService searchService;
+    private SearchMetricsService searchService;
 
 //    @Test
 //    void saveTheSearch() {

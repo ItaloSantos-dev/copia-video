@@ -2,7 +2,7 @@ package com.italo.copiavideo.service;
 import com.italo.copiavideo.DTO.youtube.VideoDTO;
 import com.italo.copiavideo.DTO.youtube.VideoSearchDTO;
 import com.italo.copiavideo.infra.external.YoutubeAPI;
-import com.italo.copiavideo.service.report.metrics.SearchService;
+import com.italo.copiavideo.service.report.metrics.SearchMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class YoutubeService {
 
     @Autowired
-    private SearchService searchService;
+    private SearchMetricsService searchService;
 
     private YoutubeAPI youtubeAPI;
 

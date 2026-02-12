@@ -68,6 +68,13 @@ public class RequestMetric {
     public RequestMetric() {
     }
 
+    public RequestMetric(String route, String method, Integer quantity, LocalDate date) {
+        this.route = route;
+        this.method = method;
+        this.quantity = quantity;
+        this.date = date;
+    }
+
     public RequestMetric(UUID id, String route, String method, Integer quantity, LocalDate date) {
         this.id = id;
         this.route = route;

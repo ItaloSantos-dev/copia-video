@@ -3,19 +3,15 @@ package com.italo.copiavideo.service.report.metrics;
 import com.italo.copiavideo.model.report.SearchMetrics;
 import com.italo.copiavideo.repository.SearchMetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
-public class SearchService {
+public class SearchMetricsService {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
