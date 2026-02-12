@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,13 +23,9 @@ public class SearchMetricsService {
 
     private final Set<String> stopWords = Set.of("a", "e", "o", "as", "os", "de", "do", "da", "em", "no", "na", "um", "se", "me", "te", "eu", "tu", "há", "ir", "já", "só", "oi", "ai", "que", "com", "por", "até", "mas", "nem", "seu", "teu", "meu", "nos", "vos", "ele", "foi", "era", "sou", "tem", "vai", "ver", "dar", "não", "sim", "bem", "mal", "uns", "das", "dos", "nas", "aos", "pro", "pra", "via");
 
-
-
     public void saveSearch(String search){
         String searchClean = search.toLowerCase().trim().replaceAll("[^a-zA-ZÀ-ÿ ]", "");
         String[] tokens = searchClean.split("\\s+");
-
-
 
         for (String token:tokens){
             if (!stopWords.contains(token) && token.length()>=3 ){
@@ -55,6 +52,13 @@ public class SearchMetricsService {
                 }
             }
         }
+    }
 
+    public List<SearchMetrics> getAllSearchMetrics(){
+        return this.searchMetricRepository.findAll();
+    }
+
+    public List<SearchMetrics> getAllSearchMetricsBetweenDay(LocalDate initialDate, LocalDate finalDate){
+        return this.searchMetricRepository.findAllSearchsByDateBetween(initialDate,finalDate);
     }
 }
