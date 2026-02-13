@@ -21,8 +21,8 @@ export const routes: Routes = [
     {path: "ideas/:id", component:EditIdea, canActivate:[authenticatedGuard]},
     {path: "error", component:Error},
     {path:"admin/dashboard", component:Dashboard, canActivate:[authenticatedGuard, isAdminGuardGuard]},
-    {path:"admin/dashboard/server-metrics", component:ServerMetrics},
-    {path:"admin/dashboard/user-metrics", component:UserMetrics},
+    {path:"admin/dashboard/server-metrics", component:ServerMetrics, canActivate:[authenticatedGuard, isAdminGuardGuard]},
+    {path:"admin/dashboard/user-metrics", component:UserMetrics, canActivate:[authenticatedGuard, isAdminGuardGuard]},
     {path:"**", component:Error}
 
 ];

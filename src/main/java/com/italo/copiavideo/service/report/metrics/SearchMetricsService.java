@@ -48,7 +48,7 @@ public class SearchMetricsService {
                 this.redisTemplate.opsForValue().increment(key);
                 Long ttl = redisTemplate.getExpire(key);
                 if (ttl== -1){
-                    redisTemplate.expire(key, Duration.ofHours(24));
+                    redisTemplate.expire(key, Duration.ofMinutes(5));
                 }
             }
         }

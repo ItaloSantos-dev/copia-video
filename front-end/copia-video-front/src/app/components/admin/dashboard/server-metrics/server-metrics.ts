@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { AdminService } from '../../../../services/admin/admin-service';
 import { StatusError } from '../../../../types/internal/status-error';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReportServerMetrics } from '../../../../types/internal/report/report-server-metrics';
 
 @Component({
   selector: 'app-server-metrics',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './server-metrics.html',
   styleUrl: './server-metrics.css',
 })

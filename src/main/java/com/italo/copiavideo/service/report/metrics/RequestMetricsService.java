@@ -40,7 +40,7 @@ public class RequestMetricsService {
         }
         this.redisTemplate.opsForValue().increment(key);
         if (ttl==-1){
-            this.redisTemplate.expire(key, Duration.ofHours(24));
+            this.redisTemplate.expire(key, Duration.ofMinutes(5));
         }
 
 
