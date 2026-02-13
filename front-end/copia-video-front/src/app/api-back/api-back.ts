@@ -11,6 +11,7 @@ import { RegisterDTO } from "../types/dto/register-dto";
 import { User } from "../types/internal/user";
 import { ServerMetrics } from "../components/admin/dashboard/server-metrics/server-metrics";
 import { ReportServerMetrics } from "../types/internal/report/report-server-metrics";
+import { ReportUserMetrics } from "../types/internal/report/report-user-metrics";
 
 @Injectable({
     providedIn:'root',
@@ -76,6 +77,10 @@ export class ApiBack {
     getServerMetrics(initialDate:string, finalDate:string):Observable<ReportServerMetrics>{
         const params = new HttpParams().set('di', initialDate).set('df', finalDate);
         return this.client.get<ReportServerMetrics>(this.urlBase + "/admin/report/server-metrics", {params:params});
+    }
+
+    getUserMetrics():Observable<ReportUserMetrics>{
+        return this.client.get<ReportUserMetrics>(this.urlBase+"/admin/report/user-metrics");
     }
     
 

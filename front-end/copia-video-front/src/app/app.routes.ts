@@ -10,6 +10,7 @@ import { Error } from './components/error/error';
 import { Dashboard } from './components/admin/dashboard/dashboard';
 import { isAdminGuardGuard } from './security/guards/is-admin-guard-guard';
 import { ServerMetrics } from './components/admin/dashboard/server-metrics/server-metrics';
+import { UserMetrics } from './components/admin/dashboard/user-metrics/user-metrics';
 
 export const routes: Routes = [
     {path:"", component: Home},
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {path: "error", component:Error},
     {path:"admin/dashboard", component:Dashboard, canActivate:[authenticatedGuard, isAdminGuardGuard]},
     {path:"admin/dashboard/server-metrics", component:ServerMetrics},
+    {path:"admin/dashboard/user-metrics", component:UserMetrics},
     {path:"**", component:Error}
 
 ];

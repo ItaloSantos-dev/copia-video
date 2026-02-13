@@ -3,6 +3,7 @@ import { ApiBack } from '../../api-back/api-back';
 import { Observable } from 'rxjs';
 import { ServerMetrics } from '../../components/admin/dashboard/server-metrics/server-metrics';
 import { ReportServerMetrics } from '../../types/internal/report/report-server-metrics';
+import { ReportUserMetrics } from '../../types/internal/report/report-user-metrics';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class AdminService {
     console.log("DF: " + finalDate);
     
     return this.apiBack.getServerMetrics(initialDate, finalDate);
+  }
+
+  getUserMetrics():Observable<ReportUserMetrics>{
+    return this.apiBack.getUserMetrics();
   }
 }
