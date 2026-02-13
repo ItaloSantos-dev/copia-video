@@ -1,6 +1,6 @@
-<main class="flex items-center justify-center mt-5 p-4 ">
+<main class="flex items-center justify-center p-4 min-h-screen">
 
-    <div class="relative z-10 ">
+    <div class="relative z-10 w-full max-w-4xl">
 
         <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_0_rgba(0,0,0,0.3)] overflow-hidden">
             
@@ -14,24 +14,25 @@
                         <p class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold">Visão Geral do Admin</p>
                     </div>
                     <div class="hidden md:block">
-                         <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-emerald-400 font-mono">SYSTEM: ONLINE</span>
+                         <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-emerald-400 font-mono flex items-center gap-2">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            SYSTEM: ONLINE
+                        </span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 justify-center items-center  gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <div class="col-span-1 md:col-span-2 group relative">
-
                         <div class="absolute -inset-0.5 bg-linear-to-r from-red-500/20 to-orange-500/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
                         <div class="relative bg-slate-950/60 border border-white/10 rounded-2xl p-5 flex flex-row items-center justify-between gap-4">
                             
                             <div class="flex items-center gap-4">
                                 <div class="relative shrink-0 w-12 h-12 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center">
                                     <i class="bi bi-shield-exclamation text-red-500 text-xl"></i>
-                                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                                    </span>
                                 </div>
                                 <div>
                                     <h3 class="text-white text-sm font-bold leading-none">Novos Logs Detectados</h3>
@@ -39,18 +40,15 @@
                                 </div>
                             </div>
 
-                            <button class="whitespace-nowrap px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wide transition-colors">
+                            <button class="whitespace-nowrap px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wide transition-colors cursor-pointer">
                                 Ver Logs
                             </button>
                         </div>
                     </div>
 
-                    <div class="relative group w-full max-w-md mx-auto min-h-100  flex items-center justify-center">
-    
+                    <div class="col-span-1 md:col-span-2 relative group w-full mx-auto flex items-center justify-center">
                         <div class="absolute inset-0 bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-md shadow-2xl"></div>
-
                             <div class="relative p-8 flex flex-col items-center text-center gap-6 w-full">
-                                
                                 <div class="flex flex-col items-center gap-3">
                                     <div class="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
                                         <i class="bi bi-people text-emerald-400 text-2xl"></i>
@@ -59,22 +57,12 @@
                                         +12% esta semana
                                     </span>
                                 </div>
-
                                 <div class="space-y-1">
                                     <h2 class="text-6xl font-black text-white tracking-tighter drop-shadow-lg">{{usersCount()}}</h2>
                                     <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.3em]">Usuários Totais</p>
                                 </div>
-
                                 <div class="w-16 h-px bg-linear-to-r from-transparent via-white/20 to-transparent"></div>
-
-                                <div class="space-y-2">
-                                    <h3 class="text-white font-bold text-lg tracking-tight">Gestão de Usuários</h3>
-                                    <p class="text-slate-400 text-xs leading-relaxed max-w-60">
-                                        Acesse a lista completa para editar, banir ou aprovar novos membros.
-                                    </p>
-                                </div>
-
-                                <div class="w-full pt-2">
+                                <div class="w-full pt-2 max-w-sm">
                                     <a href="#" class="group/btn relative w-full bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 font-extrabold py-4 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-lg shadow-emerald-900/20 active:scale-95">
                                         <div class="absolute inset-0 bg-white/20 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300"></div>
                                         <span class="relative z-10 text-sm uppercase tracking-widest">Visualizar Lista</span>
@@ -82,14 +70,35 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
                     </div> 
+
+                    <div class="col-span-1 md:col-span-2 pt-4">
+                        <h3 class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-4 ml-2 flex items-center gap-2">
+                            <i class="bi bi-grid-1x2"></i> Painel de Métricas
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <div class="relative bg-slate-950/40 border border-white/10 rounded-2xl p-6 hover:bg-slate-950/60 transition-colors group">
+                                <a href="/admin/dashboard/server-metrics" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider transition-all">
+                                    <i class="bi bi-hdd-rack  text-lg"></i>
+                                    Métricas do servidor
+                                </a>
+                            </div>
+
+
+
+                            <div class="relative bg-slate-950/40 border border-white/10 rounded-2xl p-6 hover:bg-slate-950/60 transition-colors group">
+                                <a routerLink="/admin/dashboard/user-metrics" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider transition-all">
+                                    <i class="bi bi-activity text-lg"></i>
+                                    Métricas de usuários
+                                </a>
+                            </div>
+
+                        </div>
+                     </div>
                 </div>
             </div>
-        <div class="flex justify-center gap-6 mt-6">
-            <a href="#" class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors">Configurações</a>
-            <a href="#" class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors">Sair do Sistema</a>
-        </div>
-
+        </div> 
     </div>
 </main>

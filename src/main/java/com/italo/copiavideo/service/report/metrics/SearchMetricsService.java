@@ -1,6 +1,6 @@
 package com.italo.copiavideo.service.report.metrics;
 
-import com.italo.copiavideo.model.report.SearchMetrics;
+import com.italo.copiavideo.model.report.SearchMetric;
 import com.italo.copiavideo.repository.SearchMetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -34,12 +34,12 @@ public class SearchMetricsService {
                 boolean valueIsNull = value==null;
 
                 if(!valueIsNull && Integer.parseInt(value)==5){
-                    SearchMetrics newSearchMetris = new SearchMetrics(token, 5, LocalDate.now());
+                    SearchMetric newSearchMetris = new SearchMetric(token, 5, LocalDate.now());
                     this.searchMetricRepository.save(newSearchMetris);
                     System.out.println("salvou");
                 }
                 else if(!valueIsNull && Integer.parseInt(value)>5){
-                    SearchMetrics searchMetrics = this.searchMetricRepository.findBySearchAndDate(token ,LocalDate.now());
+                    SearchMetric searchMetrics = this.searchMetricRepository.findBySearchAndDate(token ,LocalDate.now());
                     searchMetrics.setQuantity(Integer.parseInt(value));
                     this.searchMetricRepository.save(searchMetrics);
                     System.out.println("editou");
@@ -54,11 +54,11 @@ public class SearchMetricsService {
         }
     }
 
-    public List<SearchMetrics> getAllSearchMetrics(){
+    public List<SearchMetric> getAllSearchMetrics(){
         return this.searchMetricRepository.findAll();
     }
 
-    public List<SearchMetrics> getAllSearchMetricsBetweenDay(LocalDate initialDate, LocalDate finalDate){
+    public List<SearchMetric> getAllSearchMetricsBetweenDay(LocalDate initialDate, LocalDate finalDate){
         return this.searchMetricRepository.findAllSearchsByDateBetween(initialDate,finalDate);
     }
 }

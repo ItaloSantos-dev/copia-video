@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     List<User> findAllByOrderByCreatedAtAsc();
 
-    @Query("SELECT new com.italo.copiavideo.DTO.internal.UserWithAmountIdeasDTO(u,COUNT(i)) FROM User u  JOIN u.ideas i GROUP BY u ORDER BY COUNT(i) DESC")
+    @Query("SELECT new com.italo.copiavideo.DTO.internal.UserWithAmountIdeasDTO(u,COUNT(i)) FROM User u  JOIN u.ideas i GROUP BY u ORDER BY COUNT(i) ASC")
     List<UserWithAmountIdeasDTO> findUsersWithMostIdeas();
 
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "searchs_metrics")
-public class SearchMetrics {
+public class SearchMetric {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -53,17 +53,17 @@ public class SearchMetrics {
         this.date = date;
     }
 
-    public SearchMetrics() {
+    public SearchMetric() {
     }
 
-    public SearchMetrics(UUID id, String search, Integer quantity, LocalDate date) {
+    public SearchMetric(UUID id, String search, Integer quantity, LocalDate date) {
         this.id = id;
         this.search = search;
         this.quantity = quantity;
         this.date = date;
     }
 
-    public SearchMetrics(String search, Integer quantity, LocalDate date) {
+    public SearchMetric(String search, Integer quantity, LocalDate date) {
         this.search = search;
         this.quantity = quantity;
         this.date = date;

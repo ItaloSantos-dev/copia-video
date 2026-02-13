@@ -6,7 +6,7 @@ import com.italo.copiavideo.DTO.response.ReportUserMetricsDTO;
 import com.italo.copiavideo.DTO.response.UserDTO;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.model.report.RequestMetric;
-import com.italo.copiavideo.model.report.SearchMetrics;
+import com.italo.copiavideo.model.report.SearchMetric;
 import com.italo.copiavideo.service.UserService;
 import com.italo.copiavideo.service.report.metrics.RequestMetricsService;
 import com.italo.copiavideo.service.report.metrics.SearchMetricsService;
@@ -27,7 +27,7 @@ public class ReportService {
 
     @Autowired
     private RequestMetricsService requestMetricsService;
-
+    
     public ReportUserMetricsDTO getReportUser(){
         List<User> lastUserstemp = this.userService.getLastedCreateusers();
 
@@ -42,10 +42,9 @@ public class ReportService {
         return new ReportUserMetricsDTO(lastUsers, usersWithMostAmountIdeas);
     }
 
-
-    public ReportServerMetricsDTO getReport(LocalDate initialDate, LocalDate finalDate){
+    public ReportServerMetricsDTO getReportServer(LocalDate initialDate, LocalDate finalDate){
         System.out.println(initialDate + " e "+ finalDate);
-        List<SearchMetrics> searchMetrics = this.searchMetricsService.getAllSearchMetricsBetweenDay(initialDate, finalDate);
+        List<SearchMetric> searchMetrics = this.searchMetricsService.getAllSearchMetricsBetweenDay(initialDate, finalDate);
         List<RequestMetric> requestMetrics = this.requestMetricsService.getAllRequestMetricsBetweenDay(initialDate, finalDate);
 
         return new ReportServerMetricsDTO(requestMetrics, searchMetrics);
