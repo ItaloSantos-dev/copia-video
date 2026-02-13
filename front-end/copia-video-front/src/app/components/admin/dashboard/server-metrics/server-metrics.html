@@ -1,0 +1,114 @@
+<main class="flex items-center justify-center mt-5 p-4 ">
+
+    <div class="relative z-10 w-full max-w-6xl">
+
+        <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_0_rgba(0,0,0,0.3)] overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-blue-400/50 to-transparent"></div>
+
+            <div class="p-8 md:p-10">
+                
+                <div class="mb-10 flex justify-between items-end border-b border-white/10 pb-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <a routerLink="../" class="text-slate-400 hover:text-white transition-colors">
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                            <h1 class="text-2xl font-black text-white tracking-tighter uppercase">Server Analytics</h1>
+                        </div>
+                        <p class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold">Métricas detalhadas de requisições e buscas</p>
+                    </div>
+                    
+            
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                    <div class="lg:col-span-8 space-y-6">
+                        <div class="flex items-center justify-between px-2">
+                            <h3 class="text-white font-bold tracking-tight flex items-center gap-2">
+                                <i class="bi bi-cpu text-blue-400"></i>
+                                Tráfego de Endpoints
+                            </h3>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Total: {{ reportServerMetrics().requestMetrics.length }} rotas</span>
+                        </div>
+
+                        <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/40">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-white/5 text-[10px] uppercase tracking-widest text-slate-400 font-black">
+                                        <th class="px-6 py-4">Método</th>
+                                        <th class="px-6 py-4">Endpoint</th>
+                                        <th class="px-6 py-4 text-center">Requisições</th>
+                                        <th class="px-6 py-4 text-right">Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-xs">
+                                    @for (item of reportServerMetrics().requestMetrics; track item.id) {
+                                        <tr class="border-t border-white/5 hover:bg-white/5 transition-colors group">
+                                            <td class="px-6 py-4">
+                                                <span [class]="'px-2 py-1 rounded-md font-black text-[9px] border ' + 
+                                                    (item.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
+                                                     item.method === 'POST' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 
+                                                     'bg-amber-500/10 text-amber-400 border-amber-500/20')">
+                                                    {{ item.method }}
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 font-mono text-slate-300">{{ item.route }}</td>
+                                            <td class="px-6 py-4 text-center">
+                                                <span class="text-white font-bold">{{ item.quantity }}</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-right text-slate-500">{{ item.date}}</td>
+                                        </tr>
+                                    } @empty {
+                                        <tr>
+                                            <td colspan="4" class="px-6 py-10 text-center text-slate-500 uppercase tracking-widest text-[10px]">Nenhum dado de requisição detectado</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 space-y-6">
+                        <div class="flex items-center justify-between px-2">
+                            <h3 class="text-white font-bold tracking-tight flex items-center gap-2">
+                                <i class="bi bi-search text-purple-400"></i>
+                                Termos Populares
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            @for (search of reportServerMetrics().searchMetrics; track search.id) {
+                                <div class="group relative overflow-hidden bg-slate-950/40 border border-white/10 p-4 rounded-2xl hover:border-purple-500/30 transition-all">
+                                    <div class="relative z-10 flex justify-between items-center">
+                                        <div class="flex flex-col">
+                                            <span class="text-white font-bold text-sm tracking-tight italic">"{{ search.search }}"</span>
+                                            <span class="text-[9px] text-slate-500 uppercase font-bold tracking-tighter mt-1">Data: {{ search.date}}</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xl font-black text-white leading-none">{{ search.quantity }}</div>
+                                            <div class="text-[8px] text-purple-400 font-bold uppercase">Buscas</div>
+                                        </div>
+                                    </div>
+                                    <div class="absolute bottom-0 left-0 h-0.5 bg-purple-500/50 transition-all duration-500" [style.width.%]="(search.quantity / 10)"></div>
+                                </div>
+                            } @empty {
+                                <div class="border border-dashed border-white/10 rounded-2xl p-8 text-center">
+                                    <p class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Sem buscas registradas</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-6 mt-6">
+            <button class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors cursor-pointer">Exportar CSV</button>
+            <button class="text-slate-600 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors cursor-pointer">Limpar Cache</button>
+        </div>
+
+    </div>
+</main>

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +33,18 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private RoleUser role;
 
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
     public User() {
+    }
+
+    public LocalDate getCreated_at() {
+        return createdAt;
+    }
+
+    public void setCreated_at(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public User(UUID id, String name, String email, String password, RoleUser role) {
@@ -43,11 +55,12 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public User(String name, String email, String password, RoleUser role) {
+    public User(String name, String email, String password, RoleUser role, LocalDate createdAt) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.createdAt = createdAt;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

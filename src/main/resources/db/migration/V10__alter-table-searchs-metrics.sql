@@ -1,0 +1,1 @@
+ALTER TABLE searchs_metrics ADD CONSTRAINT unique_search_date UNIQUE (search,date);

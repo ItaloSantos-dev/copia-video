@@ -1,0 +1,1 @@
+ALTER TABLE requests_metrics ADD CONSTRAINT unique_route_method_date UNIQUE (route,method,date)

@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { AdminService } from '../../../services/admin/admin-service';
 import { StatusError } from '../../../types/internal/status-error';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

@@ -73,4 +73,19 @@ export class AuthService {
     return jwtDecode<UserAttributes>(token);
 
   }
+
+  isAdmin():boolean{
+    interface UserAttributes{
+      role:string
+      sub:string
+    }
+
+    const token = localStorage.getItem('token') as string;
+
+    console.log(jwtDecode<UserAttributes>(token).role==="ADMIN");
+    
+    return jwtDecode<UserAttributes>(token).role==="ADMIN";
+  }
+
+
 }

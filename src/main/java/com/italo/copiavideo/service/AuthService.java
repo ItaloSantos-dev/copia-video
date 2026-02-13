@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class AuthService {
     @Autowired
@@ -36,7 +38,7 @@ public class AuthService {
 
         String passwordEncode = encoder.encode(request.password());
 
-        User newUser = new User(request.name(), request.email(), passwordEncode, RoleUser.USER);
+        User newUser = new User(request.name(), request.email(), passwordEncode, RoleUser.USER, LocalDate.now());
 
         return this.userRepository.save(newUser);
     }
