@@ -32,7 +32,7 @@ public class AuthController {
 
         User newUser = this.authService.register(registerUserDTO, this.encoder);
 
-        return ResponseEntity.ok(new UserDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole()));
+        return ResponseEntity.ok(new UserDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole(),  0, newUser.getCreated_at()));
     }
 
     @PostMapping("login")

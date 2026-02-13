@@ -1,6 +1,7 @@
 package com.italo.copiavideo.controller;
 
-import com.italo.copiavideo.DTO.response.ReportDTO;
+import com.italo.copiavideo.DTO.response.ReportServerMetricsDTO;
+import com.italo.copiavideo.DTO.response.ReportUserMetricsDTO;
 import com.italo.copiavideo.service.report.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,14 @@ public class AdminController {
     private ReportService reportService;
 
     @GetMapping("/report/server-metrics")
-    public ResponseEntity<ReportDTO> getReportServerMetrics(@RequestParam LocalDate di, LocalDate df){
-        ReportDTO response = this.reportService.getReport(di, df);
+    public ResponseEntity<ReportServerMetricsDTO> getReportServerMetrics(@RequestParam LocalDate di, LocalDate df){
+        ReportServerMetricsDTO response = this.reportService.getReport(di, df);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/report/user-metrics")
+    public ResponseEntity<ReportUserMetricsDTO> getReportUserMetrics(){
+        ReportUserMetricsDTO response = this.reportService.getReportUser();
         return ResponseEntity.ok(response);
     }
 }

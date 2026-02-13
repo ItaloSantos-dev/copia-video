@@ -1,5 +1,7 @@
 package com.italo.copiavideo.service;
 
+import com.italo.copiavideo.DTO.internal.UserWithAmountIdeasDTO;
+import com.italo.copiavideo.DTO.response.UserDTO;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,14 @@ public class UserService implements UserDetailsService {
 
     public Long getUsersCount(){
         return this.userRepository.count();
+    }
+
+    public List<User> getLastedCreateusers(){
+        return this.userRepository.findAllByOrderByCreatedAtAsc();
+    }
+
+    public List<UserWithAmountIdeasDTO> getUsersWithMostAmountIdeas(){
+        return this.userRepository.findUsersWithMostIdeas();
     }
 
 }

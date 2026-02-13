@@ -5,5 +5,5 @@ import com.italo.copiavideo.model.report.SearchMetrics;
 
 import java.util.List;
 
-public record ReportDTO(List<RequestMetric> requestMetrics, List<SearchMetrics> searchMetrics) {
+public record ReportServerMetricsDTO(List<RequestMetric> requestMetrics, List<SearchMetrics> searchMetrics) {
 }

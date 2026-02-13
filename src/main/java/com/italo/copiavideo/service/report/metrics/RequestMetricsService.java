@@ -30,11 +30,11 @@ public class RequestMetricsService {
         Long ttl = this.redisTemplate.getExpire(key);
         boolean valueIsNull =  value == null;
 
-        if(!valueIsNull && Integer.parseInt(value)==5){
+        if(!valueIsNull && Integer.parseInt(value)==100){
             RequestMetric newRequestMetric = new RequestMetric(route, method, 5, LocalDate.now());
             this.requestMetricRepository.save(newRequestMetric);
         }
-        else if(!valueIsNull && Integer.parseInt(value)>5){
+        else if(!valueIsNull && Integer.parseInt(value)>100){
             RequestMetric requestMetric = this.requestMetricRepository.findByRouteAndMethodAndDate(route, method, LocalDate.now());
             requestMetric.setQuantity(Integer.parseInt(value));
         }
