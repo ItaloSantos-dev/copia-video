@@ -4,21 +4,16 @@ import com.italo.copiavideo.DTO.request.CreateIdeaDTO;
 import com.italo.copiavideo.DTO.request.UpdateIdeaDTO;
 import com.italo.copiavideo.exceptions.ResourceAlreadyExitsException;
 import com.italo.copiavideo.exceptions.ResourceNotFoundException;
+import com.italo.copiavideo.infra.internal.GeminiApi;
+import com.italo.copiavideo.infra.internal.TranscriptionApi;
+import com.italo.copiavideo.infra.internal.ports.IaAPI;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.repository.IdeaRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -29,7 +24,13 @@ public class IdeaService {
     private IdeaRepository ideaRepository;
 
     @Autowired
-    private EntityManager entityManager;
+    private TranscriptionApi transcriptionApi;
+
+    private IaAPI iaAPI;
+
+    public IdeaService(GeminiApi geminiApi) {
+        this.iaAPI = geminiApi;
+    }
 
     public List<Idea> getAllIdeas(){
         return this.ideaRepository.findAll();
@@ -75,5 +76,42 @@ public class IdeaService {
             throw  new ResourceNotFoundException("ideia", idea.getId().toString());
         }
         return idea;
+    }
+
+    public String generateRoadMapByVideoId(String id){
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(()-> new ResourceNotFoundException("ideia", id));
+        //String transcript = this.transcriptionApi.getTranscriptVideoById(idea.getVideo_id());
+
+        //o ideal seria enviar o transcript, mas vai estourar o limite da ia
+
+        String prompt = generatePrompt(idea.getTitle(), idea.getAnnotations());
+
+        return this.iaAPI.getResponse(prompt);
+
+    }
+
+    private String generatePrompt(String ideaTitle, String IdeaAnnotations){
+        return  "Quero que você atue como um criador profissional de roteiros virais para YouTube.\n" +
+                "\n" +
+                "Objetivo: Criar um roteiro de um vídeo altamente envolvente e com potencial viral.\n" +
+                "\n" +
+                "Título base: " + ideaTitle +
+                "Anotações importantes: "+ IdeaAnnotations +
+                "\n" +
+                "Crie um roteiro completo contendo:\n" +
+                "\n" +
+                "1. Hook extremamente forte nos primeiros 15 segundos\n" +
+                "2. Promessa clara do que o público vai ganhar assistindo\n" +
+                "3. Estrutura dividida em blocos estratégicos\n" +
+                "4. Momentos de quebra de padrão para manter retenção\n" +
+                "5. Storytelling envolvente\n" +
+                "6. Frases curtas e impactantes\n" +
+                "7. CTA final estratégico (inscrição / comentário / like)\n" +
+                "\n" +
+                "O vídeo deve ter entre 7 e 15 minutos.\n" +
+                "Tom: entretenimento\n" +
+                "Público-alvo: em geral\n" +
+                "\n" +
+                "Formate como roteiro estruturado por tópicos e não falas narradas.\n";
     }
 }
