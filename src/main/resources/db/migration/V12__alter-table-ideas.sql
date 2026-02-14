@@ -1,0 +1,2 @@
+ALTER TABLE ideas ALTER COLUMN title TYPE VARCHAR(50);
+ALTER TABLE ideas ADD COLUMN drawn jsonb;
