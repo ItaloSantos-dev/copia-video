@@ -35,10 +35,7 @@ public class YoutubeService {
         return this.youtubeAPI.getVideoById(id);
     }
 
-    @Cacheable(value = "transcript")
-    public String getTranscriptVideoById(String id){
-        return this.transcriptionApi.getTranscriptVideoById(id);
-    }
+
 
 }
 

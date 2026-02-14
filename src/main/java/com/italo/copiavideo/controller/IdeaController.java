@@ -74,4 +74,10 @@ public class IdeaController {
         Idea idea = this.ideaService.getIdeaById(id, user);
         return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName()));
     }
+
+    @GetMapping("/{id}/generate-roadmap")
+    public ResponseEntity generateRoadMapByVideoId(@PathVariable String id){
+        String roadMap = this.ideaService.generateRoadMapByVideoId(id);
+        return ResponseEntity.ok(roadMap);
+    }
 }

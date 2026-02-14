@@ -31,7 +31,7 @@ public class YoutubeAPI {
             request.setQ(search);
             request.setType(List.of("video"));
             request.setMaxResults(10L);
-            request.setOrder("viewCount");
+            request.setVideoDuration("medium");
             request.setKey(apiKey);
 
             List<SearchResult> result =   request.execute().getItems();
