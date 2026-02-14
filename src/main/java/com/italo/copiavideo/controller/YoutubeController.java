@@ -29,6 +29,12 @@ public class YoutubeController {
         return ResponseEntity.ok(this.youtubeService.getVideoById(id));
     }
 
+    @GetMapping("/video/transcript/{videoId}")
+    public ResponseEntity getTranscriptVideoById(@PathVariable String videoId) {
+        System.out.println(videoId);
+        return ResponseEntity.ok(this.youtubeService.getTranscriptVideoById(videoId));
+    }
+
 
 
 }
