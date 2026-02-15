@@ -32,6 +32,10 @@ export class IdeaService {
     return this.apiBack.updateIdeaById(id, idea);
   }
 
+  saveDrawnForIdea(id:string, drawn:JSON){
+    return this.apiBack.saveDrawnForIdea(id, drawn);
+  }
+
   
 
 }

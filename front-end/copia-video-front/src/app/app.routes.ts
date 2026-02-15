@@ -11,6 +11,7 @@ import { Dashboard } from './components/admin/dashboard/dashboard';
 import { isAdminGuardGuard } from './security/guards/is-admin-guard-guard';
 import { ServerMetrics } from './components/admin/dashboard/server-metrics/server-metrics';
 import { UserMetrics } from './components/admin/dashboard/user-metrics/user-metrics';
+import { DrawnBoard } from './components/idea/drawn-board/drawn-board';
 
 export const routes: Routes = [
     {path:"", component: Home},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path:"register", component:Register},
     {path: "ideas", component:AllIdeas, canActivate:[authenticatedGuard]},
     {path: "ideas/:id", component:EditIdea, canActivate:[authenticatedGuard]},
+    {path: "ideas/:id/drawn", component:DrawnBoard, canActivate:[authenticatedGuard]},
     {path: "error", component:Error},
     {path:"admin/dashboard", component:Dashboard, canActivate:[authenticatedGuard, isAdminGuardGuard]},
     {path:"admin/dashboard/server-metrics", component:ServerMetrics, canActivate:[authenticatedGuard, isAdminGuardGuard]},

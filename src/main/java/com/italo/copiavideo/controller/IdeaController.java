@@ -1,6 +1,5 @@
 package com.italo.copiavideo.controller;
 
-import com.auth0.jwt.JWT;
 import com.italo.copiavideo.DTO.request.CreateIdeaDTO;
 import com.italo.copiavideo.DTO.request.UpdateIdeaDTO;
 import com.italo.copiavideo.DTO.response.IdeaDTO;
@@ -10,11 +9,11 @@ import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.service.IdeaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -30,7 +29,7 @@ public class IdeaController {
     public ResponseEntity<List<IdeaDTO>> getAllIdeas(){
         List<Idea> ideas = this.ideaService.getAllIdeas();
 
-        List<IdeaDTO> response = ideas.stream().map( idea -> new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName())).toList();
+        List<IdeaDTO> response = ideas.stream().map( idea -> new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName(), idea.getDrawn())).toList();
 
         return ResponseEntity.ok(response);
     }
@@ -40,7 +39,7 @@ public class IdeaController {
         List<Idea> ideas = this.ideaService.getMyIdeas(user);
 
         List<IdeaSimplifiedDTO> response = ideas.stream().map(idea ->
-                new IdeaSimplifiedDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations())
+                new IdeaSimplifiedDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getDrawn())
         ).toList();
 
         return ResponseEntity.ok(response);
@@ -50,7 +49,7 @@ public class IdeaController {
     public ResponseEntity<IdeaDTO> createIdea(@RequestBody CreateIdeaDTO createIdeaDTO, @AuthenticationPrincipal User user){
         System.out.println(createIdeaDTO);
         Idea newIdea = this.ideaService.createIdea(createIdeaDTO, user);
-        return ResponseEntity.ok(new IdeaDTO(newIdea.getId(), newIdea.getTitle(), newIdea.getVideo_id(), newIdea.getAnnotations(), newIdea.getUser().getName()));
+        return ResponseEntity.ok(new IdeaDTO(newIdea.getId(), newIdea.getTitle(), newIdea.getVideo_id(), newIdea.getAnnotations(), newIdea.getUser().getName(), newIdea.getDrawn()));
     }
 
     @PutMapping("/{id}")
@@ -60,7 +59,7 @@ public class IdeaController {
             @AuthenticationPrincipal User user
             ){
         Idea idea = this.ideaService.updateIdea(id, updateIdeaDTO, user);
-        return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName()));
+        return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName(), idea.getDrawn()));
     }
 
     @DeleteMapping("/{id}")
@@ -72,12 +71,18 @@ public class IdeaController {
     @GetMapping("/{id}")
     public ResponseEntity<IdeaDTO> getIdeaById(@PathVariable String id, @AuthenticationPrincipal User user){
         Idea idea = this.ideaService.getIdeaById(id, user);
-        return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName()));
+        return ResponseEntity.ok(new IdeaDTO(idea.getId(), idea.getTitle(), idea.getVideo_id(), idea.getAnnotations(), idea.getUser().getName(), idea.getDrawn()));
     }
 
     @GetMapping("/{id}/generate-roadmap")
     public ResponseEntity generateRoadMapByVideoId(@PathVariable String id){
         String roadMap = this.ideaService.generateRoadMapByVideoId(id);
         return ResponseEntity.ok(roadMap);
+    }
+
+    @PostMapping("/{id}/save-drawn")
+    public ResponseEntity saveDrawnForIdea(@PathVariable String id, @RequestBody Map<String, Object> drawn){
+        this.ideaService.saveDrawnForIdea(id, drawn);
+        return ResponseEntity.noContent().build();
     }
 }

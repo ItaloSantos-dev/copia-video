@@ -1,0 +1,110 @@
+<main class="flex justify-center p-4 md:p-6 antialiased">
+    <div class="mt-6 w-full max-w-5xl">
+        <div class="relative bg-linear-to-br from-white/10 via-white/5 to-transparent border border-white/20 backdrop-blur-2xl rounded-3xl shadow-[0_8px_32px_0_rgba(16,185,129,0.15)] overflow-hidden">
+            
+            <div class="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent"></div>
+            
+            <div class="p-6 md:p-10 flex flex-col gap-8">
+
+                <div class=" flex gap-10 justify-center text-center items-center">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <h1 class="text-lg font-bold tracking-tight text-slate-100 flex items-center gap-2 uppercase">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+                                Título da ideia
+                            </h1>
+                            <p class="text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase">{{idea().title}}</p>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="relative w-90 aspect-video rounded-lg overflow-hidden border border-white/10 group bg-black">
+                            <iframe 
+                                class="w-full h-full opacity-60 hover:opacity-100 transition-opacity"
+                                [src]="iframeUrl()" 
+                                title="YouTube video player" 
+                                 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-60">
+                            <h1 class="text-lg font-bold tracking-tight text-slate-100 flex items-center gap-2 uppercase">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+                                Anotações da ideia
+                            </h1>
+                            <p class="text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase">{{idea().annotations}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <form [formGroup]="drawnForm" class="flex gap-2">
+
+                    <div class="mb-4 h-10 p-2 rounded-xl shadow-lg flex flex-col items-center gap-4 ">
+                        
+                        <div class="flex flex-col gap-2">
+                            <button type="button" (click)="changeColor('#ef4444')" 
+                                class="w-8 h-8 rounded-full bg-red-500 hover:scale-110 transition-transform shadow-sm ring-2 ring-offset-2 ring-transparent focus:ring-red-500">
+                            </button>
+                            
+                            <button type="button" (click)="changeColor('#3b82f6')" 
+                                class="w-8 h-8 rounded-full bg-blue-500 hover:scale-110 transition-transform shadow-sm ring-2 ring-offset-2 ring-transparent focus:ring-blue-500">
+                            </button>
+                            
+                            <button type="button" (click)="changeColor('#10b981')" 
+                                class="w-8 h-8 rounded-full bg-emerald-500 hover:scale-110 transition-transform shadow-sm ring-2 ring-offset-2 ring-transparent focus:ring-emerald-500">
+                            </button>
+                            
+                            <button type="button" (click)="changeColor('#000000')" 
+                                class="w-8 h-8 rounded-full bg-black hover:scale-110 transition-transform shadow-sm ring-2 ring-offset-2 ring-transparent focus:ring-black">
+                            </button>
+
+                            <button type="button" (click)="clean()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-300 transition-colors">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="relative bg-white p-2 rounded-lg shadow-2xl border-4 border-white ring-1 ring-gray-200 w-full h-150">
+                        <canvas formControlName="drawn" id="hw-canvas" class="rounded cursor-crosshair"></canvas>
+                    </div>
+                    
+                </form>
+
+                <div class="h-px bg-linear-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    
+                    <button 
+                        (click)="submit()"
+                        class="flex-1 relative group bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-slate-900 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        <i class="bi bi-check-circle-fill text-xl relative z-10"></i>
+                        <span class="relative z-10 text-base">Salvar Desenho</span>
+                    </button> 
+                
+                    
+                    <button 
+                        class="flex-1 sm:flex-initial relative group bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/30 hover:border-red-500 font-bold py-4 px-6 rounded-xl transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 overflow-hidden" 
+                        type="button">
+                        <div class="absolute inset-0 bg-linear-to-r from-red-600 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <i class="bi bi-trash-fill text-lg relative z-10"></i>
+                        <span class="relative z-10">Cancelar</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-cyan-400/30 to-transparent"></div>
+        </div>
+    </div>
+</main>
