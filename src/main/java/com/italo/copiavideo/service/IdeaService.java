@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -80,6 +81,7 @@ public class IdeaService {
 
     public String generateRoadMapByVideoId(String id){
         Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(()-> new ResourceNotFoundException("ideia", id));
+
         //String transcript = this.transcriptionApi.getTranscriptVideoById(idea.getVideo_id());
 
         //o ideal seria enviar o transcript, mas vai estourar o limite da ia
@@ -89,6 +91,15 @@ public class IdeaService {
         return this.iaAPI.getResponse(prompt);
 
     }
+
+
+    public void saveDrawnForIdea(String id, Map<String, Object> drawn){
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(()-> new ResourceNotFoundException("ideia", id));
+        idea.setDrawn(drawn);
+        this.ideaRepository.save(idea);
+    }
+
+
 
     private String generatePrompt(String ideaTitle, String IdeaAnnotations){
         return  "Quero que você atue como um criador profissional de roteiros virais para YouTube.\n" +

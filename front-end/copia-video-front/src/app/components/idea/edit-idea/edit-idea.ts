@@ -15,15 +15,15 @@ import { StatusError } from '../../../types/internal/status-error';
 export class EditIdea {
   idea = signal(<Idea> ({} as Idea))
 
-  ideaService = inject(IdeaService)
+  ideaService = inject(IdeaService);
 
   iframeUrl = signal(<SafeResourceUrl> (""));
 
-  sanitizer = inject(DomSanitizer)
+  sanitizer = inject(DomSanitizer);
 
   route = inject(ActivatedRoute);
 
-  router = inject(Router)
+  router = inject(Router);
 
   editForm = new FormGroup({
     'title': new FormControl('',[Validators.required]),
@@ -31,6 +31,7 @@ export class EditIdea {
   });
 
   ngOnInit(){
+    
     const id = this.route.snapshot.paramMap.get('id')
     if(id){
       this.ideaService.getIdeaById(id).subscribe({

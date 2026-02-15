@@ -7,13 +7,14 @@ import { VideoService } from '../../../services/videoService/video-service';
 import { StatusError } from '../../../types/internal/status-error';
 import { Idea } from '../../../types/internal/idea';
 import { IdeaService } from '../../../services/ideaService/idea-service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-drawn-board',
-  standalone: true,
+  imports:[ReactiveFormsModule],
   templateUrl: './drawn-board.html',
 })
-export class DrawnBoard implements AfterViewInit {
+export class DrawnBoard  {
 
   ideaService = inject(IdeaService)
   
@@ -23,21 +24,56 @@ export class DrawnBoard implements AfterViewInit {
 
   route = inject(ActivatedRoute);
   
-
   iframeUrl = signal(<SafeResourceUrl> (""));
 
   idea = signal(<Idea>({} as Idea));
 
+
+  drawnForm = new FormGroup({
+    'drawn':new FormControl(JSON)
+  });
+
+
   ngOnInit(){
+    this.loadIdea();
+    this.loadCanva();
+  }
+
+  loadCanva(){
+    this.canvas = new fabric.Canvas('hw-canvas', {
+      isDrawingMode: true,
+      width: 850,
+      height: 580,
+      backgroundColor: '#ffffff',
+    });
+  
+    // IMPORTANTE: Instancie o pincel explicitamente
+    this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
+    this.canvas.freeDrawingBrush.width = 4;
+    this.canvas.freeDrawingBrush.color = '#000000';
+
+    this.canvas.loadFromJSON(this.idea().drawn as JSON).then(() => {
+      this.canvas?.requestRenderAll();
+    });
+  }
+
+  loadIdea(){
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
       this.ideaService.getIdeaById(id).subscribe({
         next:(dado) =>{
+          console.log("dado");
+          
           this.idea.set(dado);
           this.iframeUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(
             'https://www.youtube.com/embed/' + dado.video_id
           ));
+
+          if(dado.drawn){
+            this.canvas?.loadFromJSON(dado.drawn);
+          }
+          
           
         },
         error:(erro)=>{
@@ -52,26 +88,31 @@ export class DrawnBoard implements AfterViewInit {
   }
 
 
+  submit(){
+    
+    let drawn:JSON = this.canvas?.toJSON();
 
+    this.ideaService.saveDrawnForIdea(this.idea().id!, drawn).subscribe({
+      next:()=>{
+        console.log("Deu bom");
+        
+        this.router.navigate(['/ideas']);
+      },
+      error:(erro)=>{
+        let dado:StatusError = {
+          status:erro.error.status,
+          menssage:erro.error.menssage
+        }
+        this.router.navigate(['/error'], {state: {dado: dado}})
+      }
+    })
+  }
 
 
 
 
   private canvas?: fabric.Canvas;
 
-  ngAfterViewInit() {
-    this.canvas = new fabric.Canvas('hw-canvas', {
-      isDrawingMode: true,
-      width: 800,
-      height: 500,
-      backgroundColor: '#ffffff',
-    });
-
-    // IMPORTANTE: Instancie o pincel explicitamente
-    this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
-    this.canvas.freeDrawingBrush.width = 4;
-    this.canvas.freeDrawingBrush.color = '#000000';
-  }
 
   changeColor(color: string) {
     if (this.canvas?.freeDrawingBrush) {

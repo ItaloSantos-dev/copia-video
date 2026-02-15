@@ -82,6 +82,10 @@ export class ApiBack {
     getUserMetrics():Observable<ReportUserMetrics>{
         return this.client.get<ReportUserMetrics>(this.urlBase+"/admin/report/user-metrics");
     }
+
+    saveDrawnForIdea(id:string, drawn:JSON):Observable<any>{
+        return this.client.post(this.urlBase + "/ideas/"+id+"/save-drawn", drawn);
+    }
     
 
 }

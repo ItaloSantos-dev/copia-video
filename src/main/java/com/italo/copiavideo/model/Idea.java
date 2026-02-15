@@ -1,8 +1,13 @@
 package com.italo.copiavideo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import tools.jackson.databind.node.ObjectNode;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +34,22 @@ public class Idea {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> drawn;
+
+    public void setVideo_id(String video_id) {
+        this.video_id = video_id;
+    }
+
+    public Map<String, Object>  getDrawn() {
+        return drawn;
+    }
+
+    public void setDrawn(Map<String, Object>  drawn) {
+        this.drawn = drawn;
+    }
 
     public Idea() {
     }
@@ -77,9 +98,6 @@ public class Idea {
         return video_id;
     }
 
-    public void setLink_video(String link_video) {
-        this.video_id = link_video;
-    }
 
     public User getUser() {
         return user;
