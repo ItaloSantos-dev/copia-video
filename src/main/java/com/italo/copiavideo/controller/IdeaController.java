@@ -7,11 +7,18 @@ import com.italo.copiavideo.DTO.response.IdeaSimplifiedDTO;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.service.IdeaService;
+import com.lowagie.text.Document;
+import com.lowagie.text.pdf.PdfWriter;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -84,5 +91,16 @@ public class IdeaController {
     public ResponseEntity saveDrawnForIdea(@PathVariable String id, @RequestBody Map<String, Object> drawn){
         this.ideaService.saveDrawnForIdea(id, drawn);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/generate-pdf")
+    public ResponseEntity generatePdfOfIdeaById(@PathVariable String id, @RequestBody(required = false)  String imageBase64) {
+        byte[] pdfBytes =  this.ideaService.generatePdfOfIdeaById(id, imageBase64);
+
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=idea.pdf")
+                .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
+                .body(pdfBytes);
     }
 }

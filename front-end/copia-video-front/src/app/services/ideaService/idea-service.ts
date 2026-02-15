@@ -36,6 +36,10 @@ export class IdeaService {
     return this.apiBack.saveDrawnForIdea(id, drawn);
   }
 
+  generatePdf(id:string, imageBase64:string):Observable<any>{
+    return this.apiBack.generatePdf(id, imageBase64);
+  }
+
   
 
 }

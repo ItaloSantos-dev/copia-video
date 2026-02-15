@@ -39,6 +39,31 @@ export class DrawnBoard  {
     this.loadCanva();
   }
 
+  generatePdf(){
+    const id= this.idea().id as string;
+    const imageBase64 = this.canvas?.toDataURL({
+      format: 'png',
+      multiplier: 1
+    }) as string;
+    
+
+    this.ideaService.generatePdf(id, imageBase64).subscribe({
+      next:(dado)=>{
+        const url = window.URL.createObjectURL(dado);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "idea-"+this.idea().title+".pdf"
+        a.click();
+        window.URL.revokeObjectURL(url);
+        
+      },
+      error:(erro)=>{
+        console.log(erro);
+        
+      }
+    });
+  }
+
   loadCanva(){
     this.canvas = new fabric.Canvas('hw-canvas', {
       isDrawingMode: true,

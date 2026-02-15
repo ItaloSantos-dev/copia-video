@@ -86,6 +86,10 @@ export class ApiBack {
     saveDrawnForIdea(id:string, drawn:JSON):Observable<any>{
         return this.client.post(this.urlBase + "/ideas/"+id+"/save-drawn", drawn);
     }
+
+    generatePdf(id:string, imageBase64:string):Observable<any>{
+        return this.client.post(this.urlBase + "/ideas/"+id+"/generate-pdf", imageBase64, {responseType:'blob'});
+    }
     
 
 }

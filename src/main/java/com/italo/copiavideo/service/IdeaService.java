@@ -10,9 +10,19 @@ import com.italo.copiavideo.infra.internal.ports.IaAPI;
 import com.italo.copiavideo.model.Idea;
 import com.italo.copiavideo.model.User;
 import com.italo.copiavideo.repository.IdeaRepository;
+import com.lowagie.text.Anchor;
+import com.lowagie.text.Document;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -124,5 +134,42 @@ public class IdeaService {
                 "Público-alvo: em geral\n" +
                 "\n" +
                 "Formate como roteiro estruturado por tópicos e não falas narradas.\n";
+    }
+
+    public byte[] generatePdfOfIdeaById(String id, String imageBase64){
+        Idea idea = this.ideaRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ResourceNotFoundException("idea", id));
+
+        System.out.println("Chegou");
+        Document document = new Document();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try{
+            PdfWriter.getInstance(document, baos);
+            document.open();
+
+            document.add(new Paragraph("Ideia: " + idea.getTitle()));
+            Anchor linkVideo = new Anchor("Link do vídeo base");
+            linkVideo.setReference("https://youtube.com/watch?v="+idea.getVideo_id());
+
+            document.add(linkVideo);
+
+            document.add(new Paragraph("\n"));
+            document.add(new Paragraph("Anotações: " + idea.getAnnotations()));
+
+            if(!imageBase64.isBlank()){
+                String imageDate = imageBase64.split(",")[1];
+                byte[] imageBytes = Base64.getDecoder().decode(imageDate);
+
+                Image img = Image.getInstance(imageBytes);
+                img.scaleToFit(400, 400);
+                document.add(img);
+            }
+            document.close();
+        }catch (IOException excetion){
+            throw  new RuntimeException("Deu ruin pdf");
+        }
+        return baos.toByteArray();
+
     }
 }
