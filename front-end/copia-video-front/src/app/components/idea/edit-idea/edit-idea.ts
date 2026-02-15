@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { Idea } from '../../../types/internal/idea';
 import { IdeaService } from '../../../services/ideaService/idea-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StatusError } from '../../../types/internal/status-error';
 
 @Component({
   selector: 'app-edit-idea',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './edit-idea.html',
   styleUrl: './edit-idea.css',
 })
