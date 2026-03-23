@@ -31,8 +31,12 @@ import java.util.UUID;
 @Service
 public class IdeaService {
 
-    @Autowired
+
     private IdeaRepository ideaRepository;
+
+    public IdeaService(IdeaRepository ideaRepository) {
+        this.ideaRepository = ideaRepository;
+    }
 
     @Autowired
     private TranscriptionApi transcriptionApi;
