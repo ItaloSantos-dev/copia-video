@@ -22,10 +22,6 @@ export class AdminService {
     const temp = new Date().setDate(new Date().getDate() - 30);
 
     const initialDate = new Date(temp).toISOString().split('T')[0];
-
-    console.log("DI: "+ initialDate);
-
-    console.log("DF: " + finalDate);
     
     return this.apiBack.getServerMetrics(initialDate, finalDate);
   }

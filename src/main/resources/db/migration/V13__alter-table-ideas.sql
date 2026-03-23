@@ -1,0 +1,1 @@
+ALTER TABLE ideas DROP CONSTRAINT ideas_title_key;
