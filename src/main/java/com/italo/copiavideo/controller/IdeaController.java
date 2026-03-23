@@ -28,9 +28,11 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 
 public class IdeaController {
-
-    @Autowired
     private IdeaService ideaService;
+    @Autowired
+    public IdeaController (IdeaService ideaService){
+        this.ideaService = ideaService;
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<IdeaDTO>> getAllIdeas(){

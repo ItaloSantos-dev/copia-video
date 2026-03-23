@@ -33,7 +33,7 @@ public class IdeaService {
 
 
     private IdeaRepository ideaRepository;
-
+    @Autowired
     public IdeaService(IdeaRepository ideaRepository) {
         this.ideaRepository = ideaRepository;
     }
